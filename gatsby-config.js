@@ -1,8 +1,16 @@
 module.exports = {
   siteMetadata: {
     title: "odyslam.com",
+    description: "Persona"
   },
   plugins: [
+    // {
+    //   resolve: `gatsby-theme-blog`,
+    //   options: {
+    //     // basePath defaults to `/`
+    //     basePath: `/blog`,
+    //   },
+    // },
     "gatsby-plugin-postcss",
     "gatsby-plugin-image",
     {
@@ -37,6 +45,19 @@ module.exports = {
         path: "./src/pages/",
       },
       __key: "pages",
+    },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [`.mdx`, `.md`],
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/posts`,
+        name: `posts`,
+      },
     },
   ],
 };
