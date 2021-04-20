@@ -1,5 +1,6 @@
 import * as React from "react"
 import Particles from "react-tsparticles";
+import mainBody from "../components/MainBody.js"
 
 // markup
 const IndexPage = () => {
@@ -10,7 +11,7 @@ const IndexPage = () => {
         id="tsparticles"
         // init={this.particlesInit}
         // loaded={this.particlesLoaded}
-        className="h-screen"
+        className="h-full absolute w-screen z-0"
         options={{
           background: {
             color: {
@@ -66,7 +67,7 @@ const IndexPage = () => {
               enable: true,
               outMode: "bounce",
               random: false,
-              speed: 6,
+              speed: 0.1,
               straight: false,
             },
             number: {
@@ -90,7 +91,9 @@ const IndexPage = () => {
           detectRetina: true,
         }}
       />
-      
+      <mainBody className="bg-black flex opacity-50 p-3 z-10 w-full h-screenMainBody m-20">
+
+      </mainBody>
       </div>
     </main>
   )
