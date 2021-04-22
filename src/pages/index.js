@@ -67,7 +67,7 @@ const IndexPage = () => {
               enable: true,
               outMode: "bounce",
               random: false,
-              speed: 0.1,
+              speed: 0.5,
               straight: false,
             },
             number: {
