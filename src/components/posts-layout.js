@@ -1,25 +1,34 @@
+// import * as DesignSystem from "./design-system.js"
+import React from "react"
+import CTA from "./CTA.js"
 import { MDXProvider } from "@mdx-js/react"
-import * as DesignSystem from "./design-system.js"
-import { CTA } from "./CTA.js"
+import Layout from './Layout.js'
+import { preToCodeBlock } from "mdx-utils"
+import Code from './CodeBlock.js'
+import Beware from './Beware.js'
+// import * from './design-system.js'
 
-export default function Layout({ children }) {
+const components = {
+  pre: preProps => {
+    const props = preToCodeBlock(preProps)
+    if (props) {
+      return <Code {...props} />
+    } else {
+      return <pre {...preProps} />
+    }
+  },
+  warning: Beware,
+};
+
+export default ({ children }) => {
+
   return (
-    <CTA>
-    <MDXProvider
-      components={{
-        // Map HTML element tag to React component
-        h1: DesignSystem.H1,
-        h2: DesignSystem.H2,
-        h3: DesignSystem.H3,
-        p: DesignSystem.P, 
-        pre: DesignSystem.Pre, 
-        code: DesignSystem.Code, 
-        img: DesignSystem.Image,
-        blockquote: DesignSystem.blockquote
-      }}
-    >
-      {children}
-    </MDXProvider>
-    </CTA>
+    <Layout>
+      <CTA>
+        <MDXProvider components={components}>
+            {children}
+          </MDXProvider>
+      </CTA>
+    </Layout>
   )
 }
