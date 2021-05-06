@@ -78,6 +78,20 @@ module.exports = {
     },
     "gatsby-plugin-postcss",
     "gatsby-plugin-image",
+    `gatsby-remark-images`,
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 590,
+            },
+          },
+        ],
+      },
+    },
     {
       resolve: "gatsby-plugin-google-analytics",
       options: {
@@ -129,7 +143,8 @@ module.exports = {
       options: {
         extensions: [`.mdx`, `.md`],
         defaultLayouts: {
-          posts: require.resolve("./src/components/posts-layout.js")
+          posts: require.resolve("./src/components/posts-layout.js"),
+          pages: require.resolve("./src/components/MdxPage.js")
         }
       },
     },
