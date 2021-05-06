@@ -1,6 +1,7 @@
 import React from "react"
 import SEO from "./SEO"
 import Particles from "react-tsparticles";
+import Sidenav from '../components/Sidenav.js'
 
 const Layout = ({ children }) => {
   return (
@@ -9,7 +10,7 @@ const Layout = ({ children }) => {
       id="tsparticles"
       // init={this.particlesInit}
       // loaded={this.particlesLoaded}
-      className="top-0 bottom-0 left-0 h-full w-full fixed z-0"
+      className="opacity-80 top-0 bottom-0 left-0 h-full w-full fixed -z-10"
       // height= {pageHeight}
       options={{
         background: {
@@ -90,11 +91,13 @@ const Layout = ({ children }) => {
         detectRetina: true,
       }}
       />
-      <main className="items-center justify-center p-10">
-        <div className="text-white bg-black opacity-80 z-10 w-full h-full break-normal p-10 rounded-lg">
-            {children}
-        </div>
-      </main>
+      <Sidenav>
+        <main className="items-center justify-center md:px-32 py-10 px-10">
+          <div className="text-white bg-black opacity-70 z-10 h-full break-normal p-10 rounded-lg">
+              {children}
+          </div>
+        </main>
+      </Sidenav>
     </>
   )
 }
