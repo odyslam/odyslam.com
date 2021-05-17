@@ -15,8 +15,10 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "@antv/g6": "^4.2.7",
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
+    "@tailwindcss/typography": "^0.4.0",
     "gatsby": "^3.2.1",
     "gatsby-plugin-feed": "^3.3.0",
     "gatsby-plugin-google-analytics": "^3.3.0",
@@ -31,14 +33,17 @@
     "gatsby-remark-images": "^5.1.0",
     "gatsby-remark-prismjs": "^5.0.0",
     "gatsby-source-filesystem": "^3.3.0",
+    "gatsby-transformer-remark": "^4.1.0",
     "gatsby-transformer-sharp": "^3.3.0",
     "mdx-utils": "^0.2.0",
     "prism-react-renderer": "^1.2.0",
     "prismjs": "^1.23.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-graph-vis": "^1.0.7",
     "react-helmet": "^6.1.0",
-    "react-tsparticles": "^1.26.3"
+    "react-tsparticles": "^1.26.3",
+    "undefined": "file:../.."
   },
   "devDependencies": {
     "autoprefixer": "^10.2.5",
