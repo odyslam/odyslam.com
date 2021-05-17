@@ -58,6 +58,17 @@ figcaption {
   @apply text-black;
 }
 
+.postInfo {
+
+}
+
+.postCoverImage {
+
+}
+
+.postTitle {
+  
+}
 
 
 /* PRISM.JS styles */
@@ -106,4 +117,27 @@ gatsby-highlight > code[class*="language-"],
 .highlight-line .line-number-style {
   opacity: 0.5;
   width: calc(1.2em - 4px);
+}
+
+div.vis-tooltip { 
+  position: absolute;
+  max-width: 40%;
+  visibility: hidden;
+  padding: 5px;
+  white-space: normal;
+  background-color: #f5f4ed; 
+
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #808074;
+
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+
+  z-index: 10;
+}
+
+.vis-network { 
+  visibility: hidden;
 }

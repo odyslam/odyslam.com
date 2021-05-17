@@ -6,7 +6,6 @@ module.exports = {
   plugins: [
     "gatsby-plugin-postcss",
     "gatsby-plugin-image",
-    `gatsby-remark-images`,
     {
       resolve: "gatsby-plugin-google-analytics",
       options: {
@@ -21,8 +20,24 @@ module.exports = {
         icon: `${__dirname}/src/images/icon.png`,
       },
     },
-    "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
+    "gatsby-plugin-sharp",
+  // {
+  //   resolve: `gatsby-transformer-remark`,
+  //   options: {
+  //     plugins: [
+  //       {
+  //         resolve: `gatsby-remark-images`,
+  //         options: {
+  //           // It's important to specify the maxWidth (in pixels) of
+  //           // the content container as this plugin uses this as the
+  //           // base for generating different widths of each image.
+  //           maxWidth: 590,
+  //         },
+  //       },
+  //     ],
+  //   },
+  // },
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -47,6 +62,7 @@ module.exports = {
       },
       __key: "posts",
     },
+    `gatsby-remark-images`,
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
@@ -59,7 +75,12 @@ module.exports = {
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 590,
+              maxWidth: 900,
+              // showCaptions: ['title'], 
+              // markdownCaptions: true, 
+              quality: 80,
+              withWebp: true,
+              tracedSVG: true 
             },
           },
         ],

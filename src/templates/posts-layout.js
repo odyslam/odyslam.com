@@ -7,6 +7,8 @@ import { preToCodeBlock } from "mdx-utils"
 import Code from '/src/components/CodeBlock.js'
 import { graphql } from "gatsby"
 import Beware from '/src/components/Beware.js'
+import { GatsbyImage } from "gatsby-plugin-image"
+
 
 
 const components = {
@@ -26,15 +28,14 @@ export default (props) => {
   let mdx = props.pageContext.node;
   let children = props.children;
   console.log(props)
-  console.log(mdx.frontmatter)
   return(
   <Layout>
     <CTA>
       <MDXProvider components={components}>
-        <h1>{mdx.frontmatter.title}</h1>
-        
-        <p>✍️ by {mdx.frontmatter.author} -- Reading ⏱: {mdx.timeToRead} minutes </p>
-        <MDXRenderer>{mdx.body}</MDXRenderer>
+        <h1 className="text-center">{mdx.frontmatter.title}</h1>
+        <p className="text-center mb-5">Published Date <span role="img" aria-label="calendar">📅 </span> {mdx.frontmatter.date} -- <span role="img" aria-label="writing">✍️ </span> by {mdx.frontmatter.author} -- Reading Time <span role="img" aria-label="clock">⏰ </span>: {mdx.timeToRead} minutes </p>
+        {mdx.frontmatter.coverImage && <GatsbyImage className="postCoverImage" loading="eager" image={mdx.frontmatter.coverImage.childImageSharp.gatsbyImageData} alt={mdx.frontmatter.coverImageLegend}/>}
+        <MDXRenderer className='prose'>{mdx.body}</MDXRenderer>
         {children}
       </MDXProvider>
     </CTA>
