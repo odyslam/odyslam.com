@@ -4,17 +4,35 @@ import Graph from "react-graph-vis";
 import {navigate} from 'gatsby'; //import navigate from gatsby
 import { render } from "react-dom";
 import NodeMap from "./NodeMap"
+import Footer from "./Footer"
 
 
 const options = {
+  manipulation: {
+    enabled: true,
+  },
   configure: {
       enabled: false
   },
-  physics: false, 
+  physics: {
+    enabled: true, 
+    repulsion: {
+      nodeDistance: 20,
+      springCostant: 0,
+      centralGravity: 0
+    },
+    hierarchicalRepulsion: {
+      nodeDistance: 300,
+      avoidOverlap: 1,
+      damping: 1,
+      sprintConstant: 0,
+    }
+  }, 
   interaction: {
-      dragNodes: false, 
-      dragView: false, 
-      selectConnectedEdges: false,
+      navigationButtons: true,
+      dragNodes: true, 
+      dragView: true, 
+      selectConnectedEdges: true,
       zoomView: false,
       hover: true
   },
@@ -22,8 +40,8 @@ const options = {
     hierarchical: {
         enabled: true, 
         parentCentralization: true,
-        levelSeparation: 200
-        , 
+        levelSeparation: 300,
+        direction: 'UD', // could be LR for small 
         sortMethod: 'directed',
         nodeSpacing: 700,
         shakeTowards: 'leaves' //roots
@@ -48,8 +66,8 @@ const options = {
       widthConstraint: 450,
       heightConstraint: 60,
       fixed: {
-        x: true,
-        y: true
+        x: false,
+        y: false
       },
       chosen: {
           node: false,
@@ -64,7 +82,8 @@ const options = {
       }
   },
   edges: {
-    color: "#000000"
+    color: "red",
+    width: "2"
   },
   // height: "100%",
   // width:"100%%"
@@ -73,6 +92,7 @@ const options = {
 const events = {
   select: function(event) {
     var { nodes, edges } = event;
+    console.log(event);
   }
 };
 
@@ -167,16 +187,30 @@ function createNodes(nodesRaw, level){
 
 let graph = {
   nodes: [
-  { id: "", label: "*home*", title: "node 3 tootip text", level: 0, value: 100 },
+  { id: "", label: "*home*", title: "node 3 tootip text", level: 0},
     { id: "about", label: "*about*", title: "node 1 tootip text", level: 1, value: 80  },
-    { id: "blog/categories", label:"*categories*", title: "node 2 tootip text", level: 1, value: 80 },
-    { id: "blog/philosophy", label: "philosophy", title: "node 4 tootip text", level: 2, value: 60 },
-    { id: "blog/technology", label: "technology", title: "node 5 tootip text", level: 2, value: 60 },
+    { id: "blog/categories", label:"*categories*", title: "node 2 tootip text", level: 1},
+    { id: "blog/philosophy", label: "philosophy", title: "node 4 tootip text", level: 2},
+    { id: "blog/technology", label: "technology", title: "node 5 tootip text", level: 2},
     { id: "blog/2021/how-to-start-a-cloud-country", label: "How to start a Country", level: 3, image: "http://localhost:8000/static/fc2d391cdcf73db4feda5a48569af123/dcb8b/cloud-country.webp", shape: "circularImage",margin: 10, title: htmlTitle(html)   },
-    { id: "b", label: "", title: "node 5 tootip text", level: 3, value: 40 },
-    { id: "c", label: "asfasdfasdfsdfsdf", title: "node 5 tootip text", level: 3, value: 40 },
-    { id: "d", label: "asfdsafadsfdsafasdfsadfsd", title: "node 5 tootip text", level: 3, value: 40 },
-    { id: "e", label: "tecasdfasdfdsfdsfhnology", title: "node 5 tootip text", level: 3 }
+    { id: "b", label: "sdfdsfs", title: "node 5 tootip text", level: 3},
+    { id: "c", label: "asfasdfasdfsdfsdf", title: "node 5 tootip text", level: 3},
+    { id: "d", label: "asfdsafadsfdsafasdfsadfsd", title: "node 5 tootip text", level: 4},
+    { id: "e", label: "tecasdfasdfdsfdsfhnology", title: "node 5 tootip text", level: 5 },
+    { id: "eg", label: "tecasdfasdfdsfdsfhnology", title: "node 5 tootip text", level: 6 },
+    { id: "e5", label: "tecasdfasdfdsfdsfhnology", title: "node 5 tootip text", level: 7 },
+    { id: "e3", label: "tecasdfasdfdsfdsfhnology", title: "node 5 tootip text", level: 8 },
+    { id: "12", label: "asfdsafadsfdsafasdfsadfsd", title: "node 5 tootip text", level: 4},
+    { id: "13", label: "tecasdfasdfdsfdsfhnology", title: "node 5 tootip text", level: 5 },
+    { id: "14", label: "tecasdfasdfdsfdsfhnology", title: "node 5 tootip text", level: 6 },
+    { id: "15", label: "tecasdfasdfdsfdsfhnology", title: "node 5 tootip text", level: 7 },
+    { id: "16", label: "tecasdfasdfdsfdsfhnology", title: "node 5 tootip text", level: 8 },    
+    { id: "17", label: "tecasdfasdfdsfdsfhnology", title: "node 5 tootip text", level: 5 },
+    { id: "18", label: "tecasdfasdfdsfdsfhnology", title: "node 5 tootip text", level: 6 },
+    { id: "19", label: "tecasdfasdfdsfdsfhnology", title: "node 5 tootip text", level: 7 },
+    { id: "20", label: "tecasdfasdfdsfdsfhnology", title: "node 5 tootip text", level: 8 },
+
+
 
   ],
   edges: [
@@ -185,10 +219,14 @@ let graph = {
     { from: "blog/categories", to: "blog/philosophy" },
     { from: "blog/categories", to: "blog/technology" },
     { from: "blog/technology", to: "blog/2021/how-to-start-a-cloud-country" },
-    { from: "blog/technology", to: "b" },
-    { from: "blog/technology", to: "c" },
-    { from: "blog/technology", to: "d" },
-    { from: "blog/technology", to: "e" },
+    { from: "blog/philosophy", to: "e" },
+  
+    { from: "blog/technology", to: "e5" },
+    { from: "b", to: "c" },
+    { from: "c", to: "d" },
+    { from: "d", to: "e" },
+    { from: "e", to: "12" },
+    { from: "e5", to: "e3" },
   ]
 };
 
@@ -200,22 +238,22 @@ class SideNav extends React.Component {
     componentDidMount() {
       window.addEventListener('resize', this.updateDimensions);
       setTimeout(() => {
-        this.state.network.fit()
+        // this.state.network.fit()
         var d = document.getElementsByClassName("vis-network")[0];
         d.style.visibility = "visible";
        }, 0)
       }
-      updateDimensions = () => {
-        this.state.network.redraw();
-        this.state.network.fit();
-      };
+      // updateDimensions = () => {
+      //   this.state.network.redraw();
+      //   this.state.network.fit();
+      // };
       componentWillUnmount() {
         window.removeEventListener('resize', this.updateDimensions);
       }
     render(){
             return(
             <>
-            <nav className="mx-8 top-0 z-40 lg:mx-32 static rounded-lg h-96 bg-gradient-to-t opacity-80 from-black to-white bg-opacity-20">
+            <nav className={`mx-8 top-0 z-40 lg:mx-32 static ${this.props.sideNavheight} rounded-lg bg-gradient-to-t opacity-80 from-black to-white bg-opacity-20`}>
                     {/* <Link to="/"  className="sidenav-links" activeClassName="active">Homeasfdsfdsfdsf </Link> */}
                     {/* <Link to="/about" className="sidenav-links" activeClassName="active">About </Link> */}
                     <Graph 
