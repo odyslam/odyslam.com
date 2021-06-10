@@ -20,14 +20,12 @@ const components = {
       return <pre {...preProps} />
     }
   },
-  warning: Beware,
+   warning: Beware,
 };
 
 
-export default (props) => {
+function BlogPostTemplate (props)  {
   let mdx = props.pageContext.node;
-  let children = props.children;
-  console.log(props)
   return(
   <Layout>
     <CTA>
@@ -36,9 +34,12 @@ export default (props) => {
         <p className="text-center mb-5">Published Date <span role="img" aria-label="calendar">📅 </span> {mdx.frontmatter.date} -- <span role="img" aria-label="writing">✍️ </span> by {mdx.frontmatter.author} -- Reading Time <span role="img" aria-label="clock">⏰ </span>: {mdx.timeToRead} minutes </p>
         {mdx.frontmatter.coverImage && <GatsbyImage className="postCoverImage" loading="eager" image={mdx.frontmatter.coverImage.childImageSharp.gatsbyImageData} alt={mdx.frontmatter.coverImageLegend}/>}
         <MDXRenderer className='prose'>{mdx.body}</MDXRenderer>
-        {children}
+        {props.children}
       </MDXProvider>
     </CTA>
   </Layout>
   )
 }
+
+
+export default BlogPostTemplate

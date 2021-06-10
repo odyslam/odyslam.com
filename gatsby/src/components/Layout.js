@@ -91,13 +91,12 @@ const Layout = (props) => {
         detectRetina: true,
       }}
       />
-      <Sidenav sideNavheight={props.sideNavheight}>
-        <main className="items-center justify-center mx-14 lg:mx-32 py-10">
+        <Sidenav></Sidenav>
+        <div className="items-center h-screen justify-center mx-14 lg:mx-32 py-10">
           <div className="text-white bg-black opacity-80 z-10 h-full break-normal p-10 rounded-lg">
               {props.children}
           </div>
-        </main>
-      </Sidenav>
+        </div>
     </>
   )
 }

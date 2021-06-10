@@ -20,13 +20,16 @@ const components = {
   warning: Beware,
 };
 
-export default ({ children }) => {
+function defaultMdxPage ( props ) {
 
   return (
     <Layout>
         <MDXProvider components={components}>
-            {children}
+            {props.children}
           </MDXProvider>
     </Layout>
   )
 }
+
+
+export default defaultMdxPage
