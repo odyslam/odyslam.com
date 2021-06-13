@@ -68,7 +68,7 @@ module.exports = {
       options: {
         extensions: [`.mdx`, `.md`],
         defaultLayouts: {
-          // posts: require.resolve("./src/templates/posts-layout.js"),
+          posts: require.resolve("./src/templates/posts-layout.js"),
           pages: require.resolve("./src/templates/MdxPage.js")
         },
         gatsbyRemarkPlugins: [

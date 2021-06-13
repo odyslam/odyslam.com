@@ -3,6 +3,7 @@ import {Link} from "gatsby"
 import Graph from "react-graph-vis";
 import {navigate} from 'gatsby'; //import navigate from gatsby
 import { render } from "react-dom";
+import { graphql } from 'gatsby'
 
 const options = {
     manipulation: {
@@ -99,12 +100,6 @@ const options = {
     <p class="text-black mx-5 font-serif">Exasfakfdj;asdffhs jfls dhajsd fkldsj;flksdjf;s dlkjf sd;lk fjdsd slkjd sahljsh kdghgh fadslkjfg hsdlkj<p> '
   
   
-  const htmlTitle = (html) => {
-    const container = document.createElement("div");
-    container.innerHTML = html;
-    return container;
-  
-  }
   
   let topLevel = [
       {
@@ -147,37 +142,7 @@ const options = {
       coverImageSrc: "http://localhost:8000/static/fc2d391cdcf73db4feda5a48569af123/dcb8b/cloud-country.webp"
     },
   }
-  
-  function createEdges(nodes){
-      let edges = [];
-      console.log(nodes)
-      nodes.forEach((object)=>{
-          let edge = {};
-          edge.leaves.forEach( (leavf)=>{
-              edge.from = object.root;
-              edge.to = object.leaves.pop();
-              edges.push(edge);
-          })
-      });
-      return edges ;
-  }
-  // nodeRaw = {path, title, coverImage, excerpt}
-  
-  function createNodes(nodesRaw, level){
-      let nodes = [];
-      nodesRaw.forEach((nodeRaw)=> {
-          let node = {};
-          nodes.id = nodeRaw.path
-          // node.label = `*${}`
-          node.title = htmlTitle(nodeRaw.pageTitle, nodeRaw.pageExcerpt)
-          node.level = level
-          node.image = nodeRaw.coverImage.Src
-          node.shape = 'circularImage'
-          nodes.push(node);
-      })
-      return nodes
-  }
-  
+
   
   
   
@@ -189,7 +154,7 @@ const options = {
       { id: "blog/categories", label:"*categories*", title: "node 2 tootip text", level: 1},
       { id: "blog/philosophy", label: "philosophy", title: "node 4 tootip text", level: 2},
       { id: "blog/technology", label: "technology", title: "node 5 tootip text", level: 2},
-      { id: "blog/2021/how-to-start-a-cloud-country", label: "How to start a Country", level: 3, image: "http://localhost:8000/static/fc2d391cdcf73db4feda5a48569af123/dcb8b/cloud-country.webp", shape: "circularImage",margin: 10, title: htmlTitle(html)   },
+      { id: "blog/2021/how-to-start-a-cloud-country", label: "How to start a Country", level: 3, image: "http://localhost:8000/static/fc2d391cdcf73db4feda5a48569af123/dcb8b/cloud-country.webp", shape: "circularImage",margin: 10, title: "title"  },
       { id: "b", label: "sdfdsfs", title: "node 5 tootip text", level: 3},
       { id: "c", label: "asfasdfasdfsdfsdf", title: "node 5 tootip text", level: 3},
       { id: "d", label: "asfdsafadsfdsafasdfsadfsd", title: "node 5 tootip text", level: 4},
@@ -367,34 +332,29 @@ class GraphMenu extends React.Component {
 
 
 
-  export const query =  graphql(`
-  query {
-    allMdx {
-      nodes {
-        fileAbsolutePath
-        slug
-        body
-        frontmatter {
-          date
-          title
-          tags
-          category
-          author
-          coverImage {
-            childImageSharp {
-              gatsbyImageData
-            }
+  export const query = graphql(`
+  allMdx {
+    nodes {
+      slug
+      frontmatter {
+        author
+        category
+        date
+        tags
+        coverImage {
+          childrenImageSharp {
+            gatsbyImageData
           }
-          coverImageLegend
         }
-        timeToRead
-        id
-        wordCount {
-          paragraphs
-          sentences
-          words
-        }
+      }
+      timeToRead
+      id
+      wordCount {
+        paragraphs
+        sentences
+        words
       }
     }
   }
+}
 `);
