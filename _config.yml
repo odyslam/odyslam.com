@@ -1,0 +1,33 @@
+# Site settings
+title: "blog.py"
+bye_message: "Love responsibility. Say: It is my duty, and mine alone, to save the earth. If it is not saved, then I alone am to blame. <br> - Nikos Kazantzakis, Ascetica   "
+url: "https://odyslam.com"
+disqus: odyslam-me
+baseurl: "/blog"
+future: true
+# Header settings
+nick: "hi"
+version: "1.5"
+mail:
+    domain: "odyslam"
+    ext: "me"
+source_code:
+    server: "github.com"
+    nick: "Odyslam"
+
+# Build settings
+markdown: kramdown
+permalink: /:title/
+exclude: ["balena_token", "deploy.sh", "README.MD", "deploy-local.sh", "manage.sh"]
+
+plugins:
+     - jekyll-sitemap
+     - jekyll-seo-tag
+
+defaults:
+  -
+    scope:
+      path: ""      # empty string for all files
+      type: posts   # limit to posts
+    values:
+      is_post: true # automatically set is_post=true for all posts

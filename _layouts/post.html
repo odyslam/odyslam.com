@@ -1,0 +1,25 @@
+---
+layout: page
+comments: true
+---
+
+<div class="post">
+
+  <header class="post-header">
+    <p class="meta">
+        {{ page.date | date: "%b %-d, %Y" }}
+        {% if page.author %} • {{ page.author }}{% endif %}
+        {% if page.meta %} • {{ page.meta }}{% endif %}
+        •
+        {% for category in page.tags %}<span><a href="{{ site.baseurl }}/category/#{{ category }}" class="reserved">{{ category }}</a>{% if forloop.last != true %}, {% endif %}</span>{% endfor %}
+    </p>
+  </header>
+  <article class="post-content">
+    <!-- <img alt = "Cover Image" src="{{page.image}}">
+    <p>{{page.imageLegend}}</p> -->
+    {{ content }}
+  </article>
+
+
+
+</div>
