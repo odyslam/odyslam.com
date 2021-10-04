@@ -87,7 +87,7 @@ $(document).keyup(
                 case "writing":
                     result = result + '&nbsp <br>\
                                         &nbsp <br>\
-                                        <span class="project_name">blog.py</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <a href="https://odyslam.com/blog/"> target = "_blank">My personal blog, mainly about tech&larr;</a><br> \
+                                        <span class="project_name">blog.py</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <a href="https://odyslam.com/blog/" target = "_blank">My personal blog, mainly about tech&larr;</a><br> \
                                         &nbsp <br>\
                                         <span class="project_name">Twitter</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <a href="https://twitter.com/odyslam_"target = "_blank">Tech, Philosophy & shitposting&larr;</a><br> \
                                         &nbsp <br>\
