@@ -98,7 +98,7 @@ The short term goals are to refine the current setup by:
 
 The midterm goal is to explore and implement a frictionless networking solution for the Home-Urbit, as we can expect it to live behind a house router. Port forwarding and UPnP are notoriously hit and miss, with every different router (even models, let alone manufacturers) having different configurations.
 
-The idea is to use an inexpensive VM on a cloud provider, as a networking gateway for Home-Urbit. Home-Urbit will initiate a constant connection to that gateway, piping all its network via the Gateway. The network
+The idea is to use an inexpensive VM on a cloud provider, as a networking gateway for Home-Urbit. Home-Urbit will initiate a constant connection to that gateway, piping all its network via the Gateway.
 
 When an external device wants to connect to Home-Urbit, it will connect to the IP of that VM.
 
@@ -135,5 +135,3 @@ The source code is in the [open](https://github.com/odyslam/home-urbit) and I in
 - Feel free to follow the project on [GitHub](https://github.com/odyslam/home-urbit) or by following me on [Twitter](https://twitter.com/odyslam_)
 - Reach out via Twitter or Urbit at ~sipsen-pilser
 - DM me and let's meet at either Urbit Assembly or ETHLisbon.
-
-p
