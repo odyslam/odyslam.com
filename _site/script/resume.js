@@ -87,12 +87,16 @@ $(document).keyup(
                 case "writing":
                     result = result + '&nbsp <br>\
                                         &nbsp <br>\
-                                        <span class="project_name">blog.py</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <a href="https://odyslam.com/blog/" target = "_blank">My personal blog, mainly about tech&larr;</a><br> \
+                                        <span class="project_name">blog.py</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <a href="https://odyslam.com/blog/" target = "_blank">My personal blog&larr;</a><br> \
+                                        &nbsp <br>\
+                                        <span class="project_name">Dev.to</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <a href="https:/dev.to/odyslam" target = "_blank">Dev.to blog&larr;</a><br> \
+                                        &nbsp <br>\
+                                        <span class="project_name">Medium</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <a href="https://odyslam.medium.com/" target = "_blank">Medium blog&larr;</a><br> \
                                         &nbsp <br>\
                                         <span class="project_name">Twitter</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <a href="https://twitter.com/odyslam_"target = "_blank">Tech, Philosophy & shitposting&larr;</a><br> \
                                         &nbsp <br>\
                                         &nbsp <br>\
-                                        External Publications <br>\
+                                        Selected external Publications <br>\
                                         &nbsp <br>\
                                         2021 <br>\
                                         &nbsp <br>\
@@ -107,7 +111,13 @@ $(document).keyup(
                                         <span class="project_name">Container Journal</span> | <a href = "https://containerjournal.com/topics/using-containers-to-build-a-turnkey-dev-environment/" target = "_blank">Using Containers to Build a Turnkey Dev Environment&larr;</a> |<br>\
                                         &nbsp <br>\
                                         <span class="project_name">Container Journal</span> | <a href = "https://containerjournal.com/topics/container-management/using-ebpf-monitoring-to-know-what-to-measure-and-why/" target = "_blank">Using eBPF Monitoring to Know What to Measure and Why&larr;</a> |<br>\
+                                        &nbsp <br>\
+                                        <span class="project_name">Netdata blog</span> &nbsp&nbsp&nbsp&nbsp&nbsp| <a href = "https://www.netdata.cloud/blog/software-extensibility-is-key-to-adoption/" target = "_blank">Software Extensibility Is Key To Adoption&larr;</a> |<br>\
+                                        &nbsp <br>\
+                                        <span class="project_name">Netdata blog</span> &nbsp&nbsp&nbsp&nbsp&nbsp| <a href = "https://www.netdata.cloud/blog/community-update-discourse/" target = "_blank">Community update: Discourse, community efforts&larr;</a> |<br>\
                                         &nbsp <br>';
+
+
                     break;
                 case 'projects':
                     result = result + '&nbsp <br>\
