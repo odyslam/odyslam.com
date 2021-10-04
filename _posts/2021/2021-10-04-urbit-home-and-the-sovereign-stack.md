@@ -8,13 +8,13 @@ tags:
     - "iot"
     - "sovereign tech"
 excerpt: "Urbit is one of these projects that it's enticing and overly complex at the same time. It's one of these few rare projects that have managed to be equally artistic and technological"
-image: htts://user-images.githubusercontent.com/13405632/121785641-98599100-cbc3-11eb-861c-77a95a7db030.png
+image: https://user-images.githubusercontent.com/13405632/121785641-98599100-cbc3-11eb-861c-77a95a7db030.png
 ---
 [Urbit](https://urbit.org) is one of these projects that it's enticing and overly complex at the same time. It's one of these few rare projects that have managed to be equally artistic and technological.
 
 Urbit's promise is simple. Create the personal server, a computer that is designed to work in a decentralized, natively p2p network and coupled with a unique [digitally scarce identity](https://urbit.org/understanding-urbit/urbit-id).
 
-If you are not familiar with the project, I highly suggest you read my [Twitter thread](https://twitter.com/odyslam_/status/1398654056839540745) and the [Understanding Urbit](https://urbit.org/understanding-urbit) blog post series by Tlon.
+If you are not familiar with the project, I highly suggest you read my [Twitter thread](https://twitter.com/odyslam_/status/1398654056839540745) and the [Understanding Urbit](https://urbit.org/understanding-urbit) blog post series by [Tlon](https://tlon.io/) and the [Urbit Foundation](https://urbit.org).
 
 ## Home-Urbit
 
