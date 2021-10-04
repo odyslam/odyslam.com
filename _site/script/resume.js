@@ -52,11 +52,11 @@ $(document).keyup(
                 case 'help':
                     result = result + ' &nbsp <br>\
                                         &nbsp <br>\
-                                        <span style="cursor:pointer" class = "nav_button">projects</span> &nbsp&nbsp&nbsp&nbsp&nbsp My portfolio <br>\
+                                        <span style="cursor:pointer" class = "nav_button">projects</span> &nbsp&nbsp&nbsp&nbsp&nbsp Links to projects, mainly tech<br>\
+                                        &nbsp <br>\
+                                        <span style="cursor:pointer" class = "nav_button">writing</span> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Links to articles and my blog<br>\
                                         &nbsp <br>\
 										<span style="cursor:pointer" class = "nav_button">contact</span> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Get in touch<br>\
-                                        &nbsp <br>\
-                                        <span style="cursor:pointer" class = "nav_button">blog</span> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMy personal blog, mainly about tech<br>\
                                         &nbsp <br>\
                                         <span style="cursor:pointer" class = "nav_button">help</span> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp List of available commands<br>\
                                         &nbsp <br>\
@@ -74,7 +74,6 @@ $(document).keyup(
                 case 'clear':
                     result = '';
                     break;
-                case 'social media':
                 case 'contact':
                     result = result + '&nbsp <br>\
                                         <br><odyslam[at]gmail[dot]com<br> \
@@ -83,29 +82,44 @@ $(document).keyup(
 										<a href="https://github.com/OdysLam" target = "_blank">GitHub &larr;</a><br>\
 										&nbsp <br>\
 										<a href="https://twitter.com/odysseas_lam" target = "_blank">Twitter &larr;</a><br>\
-										&nbsp <br>'
+										&nbsp <br>';
+                    break;
+                case "writing":
+                    result = result + '&nbsp <br>\
+                                        &nbsp <br>\
+                                        <span class="project_name">blog.py</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <a href="https://odyslam.com/blog/"> target = "_blank">My personal blog, mainly about tech&larr;</a><br> \
+                                        &nbsp <br>\
+                                        <span class="project_name">Twitter</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <a href="https://twitter.com/odyslam_"target = "_blank">Tech, Philosophy & shitposting&larr;</a><br> \
+                                        &nbsp <br>\
+                                        &nbsp <br>\
+                                        External Publications <br>\
+                                        &nbsp <br>\
+                                        2021 <br>\
+                                        &nbsp <br>\
+                                        <span class="project_name">APMdigest&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span> | <a href = "https://www.apmdigest.com/best-practices-for-devops-teams-to-optimize-infrastructure-monitoring" target = "_blank">Best Practices for DevOps Teams to Optimize Infrastructure Monitoring&larr;</a> |<br>\
+                                        &nbsp <br>\
+                                        <span class="project_name">The Cloud Awards&nbsp</span> | <a href = "https://www.cloud-awards.com/2021/05/27/monitoring-devops-critical-tool/" target = "_blank">Monitoring: a Critical Tool for Empowering Developers&larr;</a> |<br>\
+                                        &nbsp <br>\
+                                        <span class="project_name">The New Stack&nbsp&nbsp&nbsp&nbsp</span> | <a href = "https://thenewstack.io/best-practices-to-optimize-infrastructure-monitoring-within-devops-teams/" target = "_blank">Best Practices to Optimize Infrastructure Monitoring within DevOps Teams&larr;</a> |<br>\
+                                        &nbsp <br>\
+                                        <span class="project_name">DevOps.com</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp| <a href = "https://devops.com/the-benefits-of-open-source-technologies/" target = "_blank">The Benefits of Open Source Technologies&larr;</a> |<br>\
+                                        &nbsp <br>\
+                                        <span class="project_name">Container Journal</span> | <a href = "https://containerjournal.com/topics/using-containers-to-build-a-turnkey-dev-environment/" target = "_blank">Using Containers to Build a Turnkey Dev Environment&larr;</a> |<br>\
+                                        &nbsp <br>\
+                                        <span class="project_name">Container Journal</span> | <a href = "https://containerjournal.com/topics/container-management/using-ebpf-monitoring-to-know-what-to-measure-and-why/" target = "_blank">Using eBPF Monitoring to Know What to Measure and Why&larr;</a> |<br>\
+                                        &nbsp <br>';
                     break;
                 case 'projects':
                     result = result + '&nbsp <br>\
                                         &nbsp <br>\
-                                        <span class="project_name"> Writing </span> || blog.py, Twitter  | <a href = "https://odyslam.com/blog" target = "_blank">Personal blog&larr;</a>, <a href = "https://twitter.com/odysseas_lam" target = "_blank">Twitter&larr;</a> |<br>\
+                                        <span class="project_name">Tech projects</span> || Ethereum, IoT, Web, 2017- | <a href = "https://github.com/OdysLam/" target = "_blank">Github&larr;</a>|<br>\
                                         &nbsp <br>\
                                         &nbsp <br>\
-                                        <span class="project_name">Tech projects</span> || DevRel, Open Source, Tools/Scripts, IoT projects, 2017- | <a href = "https://github.com/OdysLam/" target = "_blank">Github&larr;</a>|<br>\
+                                        <span class="project_name">Research </span> || Blockchain, IoT, 2017-2019  |  <a href = "https://www.researchgate.net/profile/Odysseas_Lamtzidis" target = "_blank">ResearchGate&larr;</a> |<br>\
                                         &nbsp <br>\
                                         &nbsp <br>\
-                                        <span class="project_name"> Research </span> || Blockchain, IoT, 2017-2019  |  <a href = "https://www.researchgate.net/profile/Odysseas_Lamtzidis" target = "_blank">ResearchGate&larr;</a> |<br>\
-                                        &nbsp <br>\
-                                        &nbsp <br>\
-                                        <span class="project_name"> Design </span> || Odyslam.com, Business Card, Resumé in Illustrator, 2017-2018  | <a href = "https://drive.google.com/file/d/1RDQpPyf1z4UmsFrdnLf-f936VHfds-ha/view?usp=sharing" target = "_blank">Business Card&larr;</a>, <a href = "https://drive.google.com/file/d/1npfkuPQy-fsQYBuPj_dKJl22qTCMjxER/view?usp=sharing" target = "_blank">Resumé&larr;</a> |<br>'
+                                        <span class="project_name">Design </span> || Odyslam.com, Business Card, 2017-2018  | <a href = "https://drive.google.com/file/d/1RDQpPyf1z4UmsFrdnLf-f936VHfds-ha/view?usp=sharing" target = "_blank">Business Card&larr;</a>, <a href = "https://drive.google.com/file/d/1npfkuPQy-fsQYBuPj_dKJl22qTCMjxER/view?usp=sharing" target = "_blank">Resumé&larr;</a> |<br>'
                     break;
-                // case 'exit':
-                //     window.open('https://www.google.gr', '_self');
-                //     break;
-                // case 'about':
-                //     result = result + '<br>This site was made with &hearts; by me, based on terminal resume by Kevin Grillet<br>\
-                //                            Typed.js is used,please leave a star @<a href="http://www.mattboldt.com/demos/typed-js/" target ="_blank">Mattboldt&larr;</a>';
-                //     break;
                 case 'blog':
                     window.location.href="/blog/";;
                     break;
