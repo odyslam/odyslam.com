@@ -81,7 +81,7 @@ $(document).keyup(
                                         &nbsp <br>\
 										<a href="https://github.com/OdysLam" target = "_blank">GitHub &larr;</a><br>\
 										&nbsp <br>\
-										<a href="https://twitter.com/odysseas_lam" target = "_blank">Twitter &larr;</a><br>\
+										<a href="https://twitter.com/odyslam_" target = "_blank">Twitter &larr;</a><br>\
 										&nbsp <br>';
                     break;
                 case "writing":
