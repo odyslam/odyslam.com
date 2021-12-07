@@ -10,6 +10,7 @@ tags:
     - "tutorial"
 excerpt: "A detailed tutorial for creating a CI/CD pipeline for Foundry, a new rust Ethereum testing framework"
 image:https://i.imgur.com/UfI7wl1.jpg
+---
 
 ## Introduction
 
@@ -224,7 +225,7 @@ To build a Linux package, we need to perform 3 distinct actions:
   - Place the binary in a directory structure that conforms to standard Linux. This instructs the package installer on where to place the binary when installing the software.
   - Create a file with the required metadata.
 
-There is more than a single way to create a `.deb` archive, but since we are using GHA, we prefer to do it as part of the GHA workflow. Luckily, there is an [action](https://github.com/kentik/pkg) that does everything for us. We simply supply the necessery metadata and directory structure. To do this, we add a `package.yml` file in the root of the project and add the path to the GHA definition.
+There is more than a single way to create a `.deb` archive, but since we are using GHA, we prefer to do it as part of the GHA workflow. Luckily, there is an [action](https://github.com/kentik/pkg) that does everything for us. We simply supply the necessary metadata and directory structure. To do this, we add a `package.yml` file in the root of the project and add the path to the GHA definition.
 
 ### package.yml
 
@@ -272,7 +273,7 @@ Here are a few useful external resources on the subject of creating `.deb` packa
 * [Building binary deb packages: a practical guide](https://www.internalpointers.com/post/build-binary-deb-package-practical-guide)
 * [What is the simplest Debian Packaging Guide?](https://askubuntu.com/questions/1345/what-is-the-simplest-debian-packaging-guide)
 
-Now that we have the linux packages, we need to upload them in order to make them available for the job that will place them in the package repositories. You can observe that the `filename` of the package is offered by the the packaging GHA as an output of the step.
+Now that we have the linux packages, we need to upload them in order to make them available for the job that will place them in the package repositories. You can observe that the `filename` of the package is offered by the previous "packaging" GHA as an output of the step.
 
 ## Create The Release
 
@@ -324,7 +325,7 @@ To build the release, we need two things:
 
 The latter is important because we have added a GHA that automatically creates the changelog for us, based on the commit history. If we have proper Git history hygiene, the `master` branch should be a collection of commits from the `feature/dev` branches.
 
-When we use `actions/checkout`, we need to explicitly mention how many commits we want to checkout. This is needed in order to bring the PR messages and feed them to the GHA that autogenerates the changelog based on the RP between the current and the previous release. **By default, it uses `semver` to order the releases.**
+When we use `actions/checkout`, we need to explicitly mention how many commits we want to checkout. This is needed in order to bring the PR messages and feed them to the GHA that auto-generates the changelog based on the RP between the current and the previous release. **By default, it uses `semver` to order the releases.**
 
 The last part of the release process concerns the actual distribution to the users. You see, in our setup, the users don't directly interact with the GitHub release. The workflow makes sures to update the Linux repositories and Homebrew with the updated version of our software.
 
@@ -483,7 +484,7 @@ In order to give options to users, we opted to vendor three distinct packages:
 - Cast
 - Forge
 
-Foundry is a package that includes the other two, while Cast and Forge are packages that only include the respective binaries. Forge is a testing framework, while Cast is a great army-swiss knie to intereact with the chain. It's very possible that a user may be interested in one and not the other. We should respect that.
+Foundry is a package that includes the other two, while Cast and Forge are packages that only include the respective binaries. Forge is a testing framework, while Cast is a great army-swiss knife to interact with the chain. It's very possible that a user may be interested in one and not the other. We should respect that.
 
 
 ### How should the user install the software?
