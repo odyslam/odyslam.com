@@ -9,7 +9,7 @@ tags:
     - "devops"
     - "tutorial"
 excerpt: "A detailed tutorial for creating a CI/CD pipeline for Foundry, a new rust Ethereum testing framework"
-image:https://i.imgur.com/UfI7wl1.jpg
+image: https://i.imgur.com/UfI7wl1.jpg
 ---
 
 ## Introduction
