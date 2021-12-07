@@ -14,6 +14,32 @@ image: https://i.imgur.com/UfI7wl1.jpg
 
 ![cover image](https://i.imgur.com/UfI7wl1.jpg)
 
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [GitHub Actions (GHA)](#github-actions-gha)
+  - [A note on iterating with GitHub Actions](#a-note-on-iterating-with-github-actions)
+- [Build The Binaries](#build-the-binaries)
+- [Build the Linux Packages](#build-the-linux-packages)
+  - [.DEB and .RPM packages: A primer](#deb-and-rpm-packages-a-primer)
+  - [package.yml](#packageyml)
+  - [Back to Building the Linux Packages](#back-to-building-the-linux-packages)
+- [Create The Release](#create-the-release)
+- [Create the Homebrew Package](#create-the-homebrew-package)
+  - [Hosting our package on homebrew/homebrew-core](#hosting-our-package-on-homebrewhomebrew-core)
+- [Setup the Linux Apt repository](#setup-the-linux-apt-repository)
+  - [A note on package repositories](#a-note-on-package-repositories)
+  - [Self-host or use a service to create a Linux Repository?](#self-host-or-use-a-service-to-create-a-linux-repository)
+  - [Configure the VM](#configure-the-vm)
+- [Add the packages to the repository](#add-the-packages-to-the-repository)
+- [How should the user install the software?](#how-should-the-user-install-the-software)
+  - [Linux](#linux)
+  - [MacOS](#macos)
+- [What about the RPM archive?](#what-about-the-rpm-archive)
+- [One last thing with Homebrew](#one-last-thing-with-homebrew)
+- [Let's wrap it up](#lets-wrap-it-up)
+
 ## Introduction
 
 Open-source is a wonderful thing, as it brings together interesting people that are passionate about solving a particular problem. It's a great way to learn new things and meet exciting people. Over the last months, I had the chance to contribute to foundry, an old idea made new. Bring rust to dapptools and make a great tool even better.
@@ -460,7 +486,7 @@ It's worth mentioning that depending on the version of `gpg` that you install, i
 
 At this point, we should have our `reprepro` repository ready to be used.
 
-### Add the packages to the repository
+## Add the packages to the repository
 
 ```yaml
      - name: Add binaries to the repository
@@ -495,7 +521,7 @@ In order to give options to users, we opted to vendor three distinct packages:
 Foundry is a package that includes the other two, while Cast and Forge are packages that only include the respective binaries. Forge is a testing framework, while Cast is a great army-swiss knife to interact with the chain. It's very possible that a user may be interested in one and not the other. We should respect that.
 
 
-### How should the user install the software?
+## How should the user install the software?
 
 Although the packaging story is not yet released, let's see an example  of the result of our work thus far:
 
@@ -505,7 +531,7 @@ Although the packaging story is not yet released, let's see an example  of the r
 - package architecture: `amd64`
 - package target OS version: `bullseye`
 
-#### Linux
+### Linux
 
 The user needs to perform two actions:
 - Add the public key of the repository in their keychain
@@ -516,17 +542,17 @@ curl http://apt.dapptools.rs/foundry-key.gpg | sudo apt-key add -
 echo "deb [arch=amd64] http://apt.dapptools.rs bullseye" | sudo tee /etc/apt/sources.list.d/foundry.list
 ```
 
-#### MacOS
+### MacOS
 
 ```shell
 brew instlal foundry
 ```
 
-### What about the RPM archive?
+## What about the RPM archive?
 
 You might be wondering, why go through the hassle of generating the `.rpm` archive if we aren't going to use it. Originally, we intended to, but apparently, the tools needed to set up an RPM repository are no longer available in Debian-based systems. We would need to either run a docker-container with the RPM repository or set up another VM entirely (e.g a CentOS). Since this is the first effort in packaging, we opted to take a note and leave it for another day.
 
-### One last thing with Homebrew
+## One last thing with Homebrew
 
 ```yaml
  bump-homebrew-formula:
@@ -547,7 +573,7 @@ The last part of the workflow file concerns Homebrew. As we have talked about, H
 
 With this GHA, we can save the hassle, as it does the PR for us. We only have to review it and then the good people of Homebrew will merge it.
 
-### Let's wrap it up
+## Let's wrap it up
 
 In this relatively lengthy post, we saw how to create a CI/CD pipeline that automatically builds and distributes our software, for both Linux and MacOS systems. We used GitHub actions as the CI/CD pipeline, as the integration with the main GitHub repository is truly frictionless.
 
