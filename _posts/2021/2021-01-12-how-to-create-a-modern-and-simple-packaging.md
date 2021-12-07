@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How to create a modern and simple CI/CD workflow for packaging software
+title: How to create a CI/CD release workflow for rust projects
 date: 2021-12-04
 author: "Odysseas Lamtzidis"
 tags:
@@ -12,13 +12,15 @@ excerpt: "A detailed tutorial for creating a CI/CD pipeline for Foundry, a new r
 image: https://i.imgur.com/UfI7wl1.jpg
 ---
 
+![cover image](https://i.imgur.com/UfI7wl1.jpg)
+
 ## Introduction
 
 Open-source is a wonderful thing, as it brings together interesting people that are passionate about solving a particular problem. It's a great way to learn new things and meet exciting people. Over the last months, I had the chance to contribute to foundry, an old idea made new. Bring rust to dapptools and make a great tool even better.
 
 The great thing about re-implementing a tool in a new language is the fact that you can leverage the learnings and knowledge that now in hindsight is obvious. You stand on the shoulders of giants, avoiding all the mistakes they made and leveraging all their innovations. Of course, that is not to say that the dapptools OG is no good, on the contrary!
 
-It's so good, gakonst et al. wanted to make it better.
+It's so good, [gakonst](https://twitter.com/gakonst) et [al.](https://github.com/gakonst/foundry/graphs/contributors) wanted to make it better.
 
 As a rust noobie, my contributions were limited, as even the smallest thing demanded considerable effort and time on my part. To that effect, I opted to do the highest value thing I could think of, **work on the onboarding flow**. Even though Rust has a great tool to install Rust binaries, we wanted to offer a native experience, allowing people to use the tools they already know, aka the package managers that they already use.
 
@@ -40,6 +42,12 @@ Let's get started 💪
 ## GitHub Actions (GHA)
 
 A GitHub workflow is organized in *jobs**, where every job is a series of *steps*. Every step is a different action in the pipeline. By default, GHA will try to run all jobs in parallel unless we explicitly state that a job is dependent on the output of another. In that case, they will run serially.
+
+Before we go any further. Be warned.
+
+GitHub actions use `yaml`.
+
+![](https://www.memecreator.org/static/images/memes/4984556.jpg)
 
 We start by defining the name of the workflow and the event which will kick off the workflow.
 
@@ -273,7 +281,7 @@ Here are a few useful external resources on the subject of creating `.deb` packa
 * [Building binary deb packages: a practical guide](https://www.internalpointers.com/post/build-binary-deb-package-practical-guide)
 * [What is the simplest Debian Packaging Guide?](https://askubuntu.com/questions/1345/what-is-the-simplest-debian-packaging-guide)
 
-Now that we have the linux packages, we need to upload them in order to make them available for the job that will place them in the package repositories. You can observe that the `filename` of the package is offered by the previous "packaging" GHA as an output of the step.
+Now that we have the Linux packages, we need to upload them in order to make them available for the job that will place them in the package repositories. You can observe that the `filename` of the package is offered by the previous "packaging" GHA as an output of the step.
 
 ## Create The Release
 
@@ -338,7 +346,7 @@ At this point, it would make sense to make another stop and take about `Homebrew
 
 ## Create the Homebrew Package
 
-[Homebrew](https://brew.sh/) is a handy program, aiming at bringing the joys of having an efficient package manager to macOS. Homebrew supports both building from source and installing binaries and the brew installer is [smart enough](https://serverfault.com/questions/282261/can-reprepro-accept-a-new-version-of-a-package-into-the-repository) to prefer the latter, if available.
+[Homebrew](https://brew.sh/) is a handy program, aiming at bringing the joys of having an efficient package manager to MacOs. Homebrew supports both building from source and installing binaries and the brew installer is [smart enough](https://serverfault.com/questions/282261/can-reprepro-accept-a-new-version-of-a-package-into-the-repository) to prefer the latter, if available.
 
 To distribute a package with Homebrew, we need first to define a [formula](https://formulae.brew.sh/), written in Ruby. The formula is a source file that tells HomeBrew how to build our software. You can read more about the syntax in the [documentation](https://docs.brew.sh/Formula-Cookbook). Besides the testing section, I think that most of the formula directives are straightforward. It's worth mentioning that all regular Ruby API calls (e.g for filesystem) should work as expected.
 
@@ -541,7 +549,7 @@ With this GHA, we can save the hassle, as it does the PR for us. We only have to
 
 ### Let's wrap it up
 
-In this relatively lengthy post, we saw how to create a CI/CD pipeline that automatically builds and distributes our software, for both Linux and macOS systems. We used GitHub actions as the CI/CD pipeline, as the integration with the main GitHub repository is truly frictionless.
+In this relatively lengthy post, we saw how to create a CI/CD pipeline that automatically builds and distributes our software, for both Linux and MacOS systems. We used GitHub actions as the CI/CD pipeline, as the integration with the main GitHub repository is truly frictionless.
 
 Moreover, the above pipeline can easily be extended for non-rust projects, by modifying the following steps:
   - Build the binaries: Instead of using the cargo toolchain, use the toolchain for your software.
