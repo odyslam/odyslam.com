@@ -1,7 +1,7 @@
 ---
 layout: post
 title: How to create a modern and simple CI/CD workflow for packaging software
-date: 2021-03-31
+date: 2021-12-04
 author: "Odysseas Lamtzidis"
 tags:
     - "2021"
