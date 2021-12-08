@@ -12,7 +12,7 @@ image: https://user-images.githubusercontent.com/13405632/121785641-98599100-cbc
 ---
 [Urbit](https://urbit.org) is one of these projects that it's enticing and overly complex at the same time. It's one of these few rare projects that have managed to be equally artistic and technological.
 
-Urbit's promise is simple. Create the personal server, a computer that is designed to work in a decentralized, natively p2p network and coupled with a unique [digitally scarce identity](https://urbit.org/understanding-urbit/urbit-id).
+Urbit's promise is simple. Create the personal server, a computer that is designed to wor in a decentralized, natively p2p network and coupled with a unique [digitally scarce identity](https://urbit.org/understanding-urbit/urbit-id).
 
 If you are not familiar with the project, I highly suggest you read my [Twitter thread](https://twitter.com/odyslam_/status/1398654056839540745) and the [Understanding Urbit](https://urbit.org/understanding-urbit) blog post series by [Tlon](https://tlon.io/) and the [Urbit Foundation](https://urbit.org).
 
@@ -122,7 +122,7 @@ The final milestones consist of offering the choice to completely decoupled from
 
 As we want to create a sovereign stack of software, it's important to be able to decouple from every possible source of centralization. **I want the users to have the choice between maxing out the UX or privacy and decentralization.**
 
-Security and privacy is a spectrum, not a binary state. I think there is an argument to be made for allowing users to choose how much UX they want to exchange for incresed privacy/security.
+Security and privacy is a spectrum, not a binary state. I think there is an argument to be made for allowing users to choose how much UX they want to exchange for increased privacy/security.
 
 The end game is to create actual hardware that anyone can order and have delivered. Their plug n' play Urbit, theirs forever to install the software that is most important to them.
 
