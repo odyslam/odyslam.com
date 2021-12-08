@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How to create a CI/CD release workflow for rust projects
+title: Auomating the release of Foundry: An rust Ethereum development toolbox
 date: 2021-12-04
 author: "Odysseas Lamtzidis"
 tags:
@@ -8,8 +8,8 @@ tags:
     - "rust"
     - "devops"
     - "tutorial"
-excerpt: "A detailed tutorial for creating a CI/CD pipeline for Foundry, a new rust Ethereum testing framework"
-image: https://i.imgur.com/1XnPTVV.png
+excerpt: "A detailed tutorial for creating a CI/CD release workflow for any rust project"
+image: https://i.imgur.com/oRjVE8M.png
 ---
 
 ![cover image](https://i.imgur.com/UfI7wl1.jpg)
