@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Auomating the release of Foundry: An rust Ethereum development toolbox
+title: "Automating the release of Foundry: An rust Ethereum development toolbox"
 date: 2021-12-04
 author: "Odysseas Lamtzidis"
 tags:
