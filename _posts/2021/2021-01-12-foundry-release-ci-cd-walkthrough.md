@@ -48,9 +48,11 @@ The great thing about re-implementing a tool in a new language is the fact that 
 
 It's so good, [gakonst](https://twitter.com/gakonst) et [al.](https://github.com/gakonst/foundry/graphs/contributors) wanted to make it better.
 
-As a rust noobie, my contributions were limited, as even the smallest thing demanded considerable effort and time on my part. To that effect, I opted to do the highest value thing I could think of, **work on the onboarding flow**. Even though Rust has a great tool to install Rust binaries, we wanted to offer a native experience, allowing people to use the tools they already know, aka the package managers that they already use.
+Apart from the new tool, we wanted to offer a native onboarding experience, allowing people to use the tools they already know.
 
-To that effect, this little project was born, creating a CI/CD pipeline for Foundry (or any Rust project really), that creates packages for both Linux and MacOS, using APT and Homebrew. Currently, Foundry is unofficially released without the packaging story, as we want to refine the codebase before offering an official GitHub Release.
+To that effect, this little project was born, creating a CI/CD pipeline for Foundry (or **any Rust project really**), that creates packages for both Linux and MacOS, using **APT** and **Homebrew**. 
+
+**Disclaimer:** Currently, Foundry is unofficially released without this release CI/CD flow, as we want to refine the codebase before offering an official GitHub Release.
 
 In this blog post, we are going to see how to set up a release CI/CD pipeline with GitHub actions, that:
   - Builds binaries of a rust project for Linux.
