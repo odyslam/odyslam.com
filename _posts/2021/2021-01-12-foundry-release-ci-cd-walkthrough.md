@@ -50,7 +50,7 @@ It's so good, [gakonst](https://twitter.com/gakonst) et [al.](https://github.com
 
 Apart from the new tool, we wanted to offer a native onboarding experience, allowing people to use the tools they already know.
 
-To that effect, this little project was born, creating a CI/CD pipeline for Foundry (or **any Rust project really**), that creates packages for both Linux and MacOS, using **APT** and **Homebrew**. 
+To that effect, this little project was born, creating a CI/CD pipeline for Foundry (or **any Rust project really**), that creates packages for both Linux and MacOS, using **APT** and **Homebrew**.
 
 **Disclaimer:** Currently, Foundry is unofficially released without this release CI/CD flow, as we want to refine the codebase before offering an official GitHub Release.
 
@@ -113,6 +113,7 @@ Now that we know the basics of GHA, let's get into the first job of our pipeline
 
 ## Build The Binaries
 
+{% raw %}
 ```yaml
   build-artifacts:
     runs-on:  ${{ matrix.os }}
@@ -144,6 +145,8 @@ Now that we know the basics of GHA, let's get into the first job of our pipeline
               ./target/release/forge
               ./target/release/cast
 ```
+{% endraw %}
+
 
 The first job is to build the binaries for foundry. As you notice, we only build the binaries for Linux and MacOS, not Windows. For now, we don't plan to support windows, at least for this first effort of packaging. If large numbers of users ask for support, we will probably integrate a workflow to create the appropriate artifacts for [chocolatey](https://chocolatey.org/), the package manager for windows. As for macOS, we will be using Homebrew to distribute the software. With Homebrew, we can create a recipe on how to build the software from the source and their CI/CD will create the binaries for the 3 latest macOS versions. The only requirement in order to use that CI/CD pipeline is that we add our package to their official package repository, thus abiding by their rules. The only reason we build the binary here, is so the users have the option to download it as part of the GitHub release.
 
@@ -159,6 +162,7 @@ The final step is to upload the artifacts so that they can be used from the next
 
 ## Build the Linux Packages
 
+{% raw %}
 ```yaml
   build-linux-packages:
     runs-on: ubuntu-latest
@@ -241,6 +245,8 @@ The final step is to upload the artifacts so that they can be used from the next
             ./${{ steps.build_deb_foundry.outputs.package }}
             ./${{ steps.build_rpm_foundry.outputs.package }}
 ```
+{% endraw %}
+
 Before we talk about the workflow, let's take a moment to talk about `.deb` and `.rpm` packages.
 
 ### .DEB and .RPM packages: A primer
@@ -313,6 +319,7 @@ Now that we have the Linux packages, we need to upload them in order to make the
 
 ## Create The Release
 
+{% raw %}
 ```yaml
   create-release:
     runs-on: ubuntu-latest
@@ -351,6 +358,8 @@ Now that we have the Linux packages, we need to upload them in order to make the
            ./macos-bins.tar.gz
            ./linux-bins.tar.gz
 ```
+{% endraw %}
+
 **GHA used:**
 - [release-changelog-builder-action](https://github.com/mikepenz/release-changelog-builder-action)
 - [action-gh-release](https://github.com/softprops/action-gh-release)
@@ -490,6 +499,7 @@ At this point, we should have our `reprepro` repository ready to be used.
 
 ## Add the packages to the repository
 
+{% raw %}
 ```yaml
      - name: Add binaries to the repository
        uses: appleboy/ssh-action@master
@@ -506,6 +516,8 @@ At this point, we should have our `reprepro` repository ready to be used.
            sudo reprepro -b /var/repositories -C main includedeb bullseye-foundry $(ls | grep foundry)
            rm -rf /tmp/linux-packages
 ```
+{% endraw %}
+
 **GHA used:**
 * [bump-homebrew-formula-action](https://github.com/mislav/bump-homebrew-formula-action)
 * [scp-action](https://github.com/appleboy/scp-action)
@@ -556,6 +568,7 @@ You might be wondering, why go through the hassle of generating the `.rpm` archi
 
 ## One last thing with Homebrew
 
+{% raw %}
 ```yaml
  bump-homebrew-formula:
     runs-on: ubuntu-latest
@@ -567,6 +580,8 @@ You might be wondering, why go through the hassle of generating the `.rpm` archi
         env:
           COMMITTER_TOKEN: ${{ secrets.G_TOKEN }}
 ```
+{% endraw %}
+
 **GHA used:**
 - [bump-homebrew-formula-action
 ](https://github.com/mislav/bump-homebrew-formula-action)
