@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Automating the release of Foundry: An rust Ethereum development toolbox"
+title: "Automating the release of Foundry: An Ethereum development toolbox in Rust"
 date: 2021-12-04
 author: "Odysseas Lamtzidis"
 tags:
@@ -14,9 +14,8 @@ image: https://i.imgur.com/oRjVE8M.png
 
 ![cover image](https://i.imgur.com/UfI7wl1.jpg)
 
-## Table of Contents
+## Going from Zero to Hero
 
-- [Table of Contents](#table-of-contents)
 - [Introduction](#introduction)
 - [GitHub Actions (GHA)](#github-actions-gha)
   - [A note on iterating with GitHub Actions](#a-note-on-iterating-with-github-actions)
@@ -44,15 +43,15 @@ image: https://i.imgur.com/oRjVE8M.png
 
 Open-source is a wonderful thing, as it brings together interesting people that are passionate about solving a particular problem. It's a great way to learn new things and meet exciting people. Over the last months, I had the chance to contribute to foundry, an old idea made new. Bring rust to dapptools and make a great tool even better.
 
-The great thing about re-implementing a tool in a new language is the fact that you can leverage the learnings and knowledge that now in hindsight is obvious. You stand on the shoulders of giants, avoiding all the mistakes they made and leveraging all their innovations. Of course, that is not to say that the dapptools OG is no good, on the contrary!
+The great thing about re-implementing a tool in a new language is the fact that you can leverage the learnings and knowledge that now in hindsight is obvious. You stand on the shoulders of giants, avoiding all the mistakes they made and leveraging all their innovations. 
 
-It's so good, [gakonst](https://twitter.com/gakonst) et [al.](https://github.com/gakonst/foundry/graphs/contributors) wanted to make it better.
+Of course, that is not to say that the dapptools OG is no good, on the contrary! It's so good that [gakonst](https://twitter.com/gakonst) et [al.](https://github.com/gakonst/foundry/graphs/contributors) wanted to make it even better.
 
-Apart from the new tool, we wanted to offer a native onboarding experience, allowing people to use the tools they already know.
+We also wanted to offer a native onboarding experience, allowing people to use the tools they already know.
 
-To that effect, this little project was born, creating a CI/CD pipeline for Foundry (or **any Rust project really**), that creates packages for both Linux and MacOS, using **APT** and **Homebrew**.
+To that effect, _this_ little project was born, creating a CI/CD pipeline for Foundry (or **any Rust project really**), that automatically releases a new version of the packages in both Linux and MacOS.
 
-**Disclaimer:** Currently, Foundry is unofficially released without this release CI/CD flow, as we want to refine the codebase before offering an official GitHub Release.
+**Disclaimer:** Currently Foundry is unofficially released without this release CI/CD flow.  We want to refine the codebase before offering an official GitHub Release.
 
 In this blog post, we are going to see how to set up a release CI/CD pipeline with GitHub actions, that:
   - Builds binaries of a rust project for Linux.
@@ -275,15 +274,15 @@ This `.yaml` file is required by the aforementioned GHA that builds the packages
 
 ```yaml
 meta:
-  description: A drop-in replacement for Dapptools, written in Rust.
+  description: Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.
   maintainer: Odysseas Lamtzidis
 files:
-  "/usr/bin/cast":
-    file: target/release/cast
-    mode: "0755"
-    user: "root"
   "/usr/bin/forge":
     file: target/release/forge
+    mode: "0755"
+    user: "root"
+  "/usr/bin/cast":
+    file: target/release/cast
     mode: "0755"
     user: "root"
 ```
