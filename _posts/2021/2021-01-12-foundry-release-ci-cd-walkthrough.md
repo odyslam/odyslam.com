@@ -9,7 +9,7 @@ tags:
     - "devops"
     - "tutorial"
 excerpt: "A detailed tutorial for creating a CI/CD release workflow for any rust project"
-image: https://i.imgur.com/oRjVE8M.png
+image: https://i.imgur.com/1kP9y50.png
 ---
 
 ![cover image](https://i.imgur.com/UfI7wl1.jpg)
