@@ -88,7 +88,9 @@ The reason **claps** is divided into two different metrics is because I wanted t
 **Gravitas Formula**:
 
 $$
+\begin{aligned}
 gravitas = (silverAmount * silverRatio + senderGravitas * senderGravitasRatio) / 100
+\end{aligned}
 $$
 
 Firstly, we assume that the Guild **knows** about the silver mechanism of the Merchant Republic. With that information, they can choose a weight to apply on the silver amount in the formula. Doing that, Guilds choose how much they want for the silver amount to **affect** the Gravitas (Reputation). In other words, Guilds have full control over the threshold that users need to pass to enter the Guild. Even if a Merchant Republic decides to give x1000 Silver (Claps) to commoners, the Guild will simply change the `silverRatio`. Note that this Ratio is on a per-Merchant-Republic basis, so a Guild can set different weights for different Merchant Republics.
@@ -112,12 +114,19 @@ In the guild, we have two types of agents: A Guild Master and a Guild Member. Th
 The Guild Member receives a reward based on how long they have been in the guild and their gravitas, with more weight given to the former parameter.
 
 **Guild Member Reward Formula**
+
 $$
+\begin{aligned}
 claimableReward = timeSinceLastClaim * memberRewardPerSecond ^ 2 * (gravitas * gravitasWeight) * guildMemberMultiplier
+\end{aligned}
 $$
+
 **Guild Master Reward Formula**
+
 $$
+\begin{aligned}
 claimableReward = timeSinceLastClaim * memberRewardPerSecond ^ 2 * (gravitas * gravitasWeight) * guildMasterMultiplier
+\end{aligned}
 $$
 
 Since all Guild Members use the same  "reserve" to get their rewards, that being the address of the Guild, we can expect that the Guild organically will remove members who are not contributing.
