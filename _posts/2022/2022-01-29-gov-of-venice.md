@@ -17,16 +17,19 @@ Jai had come up with an interesting new concept, called Gov 2.0. It was an envis
 
 We agreed for me to implement a PoC for the idea, starting with the mechanism design and finishing with a set of working smart contracts.
 
-In this blog post, I want to go over the initial Gov 2.0 idea and talk about a reference implementation called "Governance of Venice". Finally, I will make a mention of a draft definition of a set of interfaces that could evolve into a formally applied EIP.
+In this blog post, we are going to see:
+- The initial Gov 2.0 idea and why it matters
+- A reference implementation of the bulk of the aforementioned ideas
+- A standard for inter-DAO Governance Participation
 
 ## Gov 2.0
 
 DAOs are one of the most powerful tools of the century. A new paradigm in aligning incentives and organizing a group of people around a common goal. Coordination is a tough problem to crack and it has been proven that token voting **alone** is not the most effective way to do things.
 
 A few problems that we found are:
-- Limited Proposers. Few people go over the obstacles of proposing and even fewer are informed enough to be able to rationally vote.
-- Mixed Intentions. Large stakeholders (e.g VCs) can obfuscate their identity through different delegation schemes, keeping their power intact.
-- Overestimated Knowledge. By treating all token holders the same, Governance expects token holders to know equally well vastly different topics, such as finances and smart contract security.
+- **Limited Proposers**. Few people go over the obstacles of proposing and even fewer are informed enough to be able to rationally vote.
+- **Mixed Intentions**. Large stakeholders (e.g VCs) can obfuscate their identity through different delegation schemes, keeping their power intact.
+- **Overestimated Knowledge**. By treating all token holders the same, Governance expects token holders to know equally well vastly different topics, such as finances and smart contract security.
 
 With that in mind, Gov 2.0 introduces a new actor in the Governance system: the `functional group`. Simply put, people organize in groups based on their expertise and these groups have the power to **veto** a proposal, as long as the proposal has marked the group as **relevant** to the proposal itself.
 
@@ -37,8 +40,8 @@ Participating in a group is incentivized, so missing several votes will result i
 Finally, groups that vote for a proposal can decide that another group is needed, even if it wasn't called to vote on the proposal. If they do, the proposer is slashed (for not choosing the appropriate groups) and the group is invited to vote whether to veto the proposal.
 
 We can distill the core concepts into two domains:
-- [ ] A framework for autonomous subDAOs to participate in the Governance process of Protocols via a well-defined process and set of interfaces. The framework describes the relationship of the two entities (Protocol Governance - subDAO) and not how each entity works internally.
-- [x] A model about the identity of subDAOs, aka functional groups, and how these groups should function internally (e.g claps as a signaling mechanism).
+- A framework for autonomous subDAOs to participate in the Governance process of Protocols via a well-defined process and set of interfaces. The framework describes the relationship of the two entities (Protocol Governance - subDAO) and not how each entity works internally.
+- A model about the identity of subDAOs, aka functional groups, and how these groups should function internally (e.g claps as a signaling mechanism).
 
 The reference implementation, called Governance of Venice, tackles the latter, while the EIP draft aims to target the former.
 
@@ -49,11 +52,11 @@ We draw inspiration about the reference implementation from the years of the [Re
 ![](https://i.imgur.com/jEgPX52.jpg)
 *Figure 1. An overview of the Governance of Venice*
 
-Imagine a world where `LexDAO` is both a DAO, but also has a Guild instance that participates in the Governance process of different DAOs. By governance process, we mean on-chain voting by token holders that results in actual protocol changes, such as [Governor Bravo](https://github.com/compound-finance/compound-protocol/tree/master/contracts/Governance) or [Maker Governance Module](https://docs.makerdao.com/smart-contract-modules/governance-module). We mean votes on proposals that result in literal code execution.
+Imagine a world where [LexDAO](https://www.lexdao.coop/)is both a DAO, but also has a Guild instance that participates in the Governance process of different DAOs. By governance process, we mean on-chain voting by token holders that results in actual protocol changes, such as [Governor Bravo](https://github.com/compound-finance/compound-protocol/tree/master/contracts/Governance) or [Maker Governance Module](https://docs.makerdao.com/smart-contract-modules/governance-module). We mean votes on proposals that result in literal code execution.
 
 In that world, proposers could specify that a certain proposal must first be approved by LexDAO, to reach the floor of the token holders, as it has to do with some change that touches the Legal aspect of the DAO. With Governance of Venice, the proposal would first have to be approved by LexDAO for it to continue.
 
-We can expect many different guilds performing work relevant to their functional area for many different governance modules. To ensure that the relevant Guild will be called, we force users to submit proposals that define at least a Guild to be consulted. On top of that, Guilds can call other Guilds to the vote, making sure that most relevant voices are heard.
+We can expect many different guilds performing work relevant to their functional area for many different governance modules. To ensure that the relevant Guild will be called, we force users to submit proposals that define at least a Guild to b e consulted. On top of that, Guilds can call other Guilds to the vote, making sure that most relevant voices are heard.
 
 Although the standard is completely agnostic about the Guild and the Merchant Republic, we took a highly opinionated approach for the reference implementation.
 
@@ -66,6 +69,13 @@ Before we dive into the specifics, let's get a lay of the land:
 - **Guild**: This particular Guild implementation that is permissionless, meaning that **anyone** can join and most actions require voting from the Guild Members.
 - **Commoner**: A token holder of the Merchant Republic that doesn't belong to a particular Guild.
 - **Guild Member**: A member of the Guild. They may or may not be token-holders.
+
+## General Architecture
+
+Governance of Venice is an extension of [Governor Bravo](https://compound.finance/docs/governance#introduction). It's divided into two main components:
+- Governor Bravo: is the smart contract where token holders make proposals and vote on them. It tracks the lifecycle of all the proposals and it's votes.
+- Timelock: is the smart contracts that executes the transactions that are defined in a proposal. It enforces a timelock to the proposals that pass, so they are not executed right away.
+
 
 ### Joining a Guild
 
@@ -157,7 +167,7 @@ Any address can invoke the function `slashForCash(address guildCouncil, uint48 p
 
 Due to the decentralized nature of the Guild's implementation, any member can start a vote to either replace the current Guild Master with a new one or banish(remove) a Guild Member entirely.
 
-To avoid spamming the guild, **a Guild Member who brings a vote that doesn't pass will get slashed**. We expect Guild Members to first align the Guild and reach consensus through off-chain methods, such as a simple Discourse vote.
+To avoid spamming the guild, **a Guild Member will get slashed if they call a vote that doesn't pass**. We expect Guild Members to **first align the Guild and reach consensus through off-chain methods**, such as a simple Discourse vote or snapshot.
 
 **On-chain guild voting should work as a rubber stamp of a decision that has already been made at the social layer.**
 
@@ -175,13 +185,13 @@ The inter-DAO Governance Participation standard is the second result of the work
 
 That's right. There is no reason why a Guild couldn't be a DAO of its own, voting and vetoing on proposals of other DAOs, as long as they have been accepted to participate in the Governance Process.
 
-As far as the standard is concerned, **a Guild is an address that supports a simple and specific set of interfaces**, mainly around sending proposals and receiving verdicts.
+As far as the standard is concerned, **a Guild is an ethereum address of a smart contract that supports a simple and specific set of interfaces**, mainly around sending proposals and receiving verdicts.
 
-The standard is intentionally abstract about the type of the Governance protocol and the Guild. It focuses on their intercommunication and how they work as autonomous units. That means that a Guild can function in any way it seems best, from a closely-knit group of people who align over a video call, to a trustless Guild where Guild Members **vote** on how the Guild should respond.
+The standard is intentionally abstract about the exact inner workings of the Governance protocol and the Guild. It focuses on their intercommunication and how they work as autonomous units. That means that a Guild can function in any way it seems best, from a closely-knit group of people who align over a video call, to a trustless Guild where Guild Members **vote** on how the Guild should respond.
 
-Note that the reference implementation is a much more opinionated design based on this simple concept, so the interfaces defined in the source code are not equivalent to what we define here.
+The reference implementation is a much more opinionated design based on this simple concept, so the interfaces defined in the source code are not equivalent to what we define here.
 
-**This is an evolving standard and we foresee making many changes after initial feedback. I am actively looking for co-authors to bring this EIP to life**.
+**This is an evolving standard and we foresee making many changes after initial feedback. We are actively looking for co-authors to bring this EIP to life**.
 
 ![](https://i.imgur.com/s8WFuLM.png)
 *Figure 2. Overview of the components and how they interact*
