@@ -72,10 +72,16 @@ Before we dive into the specifics, let's get a lay of the land:
 
 ## General Architecture
 
-Governance of Venice is an extension of [Governor Bravo](https://compound.finance/docs/governance#introduction). It's divided into two main components:
+Governance of Venice is an extension of [Governor Bravo](https://compound.finance/docs/governance#introduction), which is divided into two main components:
 - Governor Bravo: is the smart contract where token holders make proposals and vote on them. It tracks the lifecycle of all the proposals and it's votes.
 - Timelock: is the smart contracts that executes the transactions that are defined in a proposal. It enforces a timelock to the proposals that pass, so they are not executed right away.
 
+In our architecture, they are called **Merchant Republic** and **Constitution** respectively.
+
+On top of it, it has another smart contract that functions as a registry and proxy for the communication between the Merchant Republic and the Guilds. It's called the **Guild Council**. Finally, we have an arbitrary number of Guilds, for which we have created a reference implementation that showcases some interesting concepts (e.g reputation-based admission for members).
+
+![general architecture](https://i.imgur.com/RNcef8c.png)
+*Figure 2. Main components of the architecture*
 
 ### Joining a Guild
 
@@ -194,7 +200,7 @@ The reference implementation is a much more opinionated design based on this sim
 **This is an evolving standard and we foresee making many changes after initial feedback. We are actively looking for co-authors to bring this EIP to life**.
 
 ![](https://i.imgur.com/s8WFuLM.png)
-*Figure 2. Overview of the components and how they interact*
+*Figure 3. The interaction of the components*
 
 We define the following interfaces, which can also be found in the [GitHub repository](https://github.com/pentagonxyz/gov-of-venice) of the reference implementation.
 
