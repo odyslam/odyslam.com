@@ -89,7 +89,7 @@ $(document).keyup(
                                         &nbsp <br>\
                                         <span class="project_name">blog.py</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <a href="https://odyslam.com/blog/" target = "_blank">My personal blog&larr;</a><br> \
                                         &nbsp <br>\
-                                        <span class="project_name">Dev.to</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <a href="https:/dev.to/odyslam" target = "_blank">Dev.to blog&larr;</a><br> \
+                                        <span class="project_name">Dev.to</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <a href="https://dev.to/odyslam" target = "_blank">Dev.to blog&larr;</a><br> \
                                         &nbsp <br>\
                                         <span class="project_name">Medium</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <a href="https://odyslam.medium.com/" target = "_blank">Medium blog&larr;</a><br> \
                                         &nbsp <br>\
