@@ -49,9 +49,6 @@ The reference implementation, called Governance of Venice, tackles the latter, w
 
 We draw inspiration about the reference implementation from the years of the [Republic of Venice](https://en.wikipedia.org/wiki/Republic_of_Venice), a prime example of decentralization in a time riddled with Empires.
 
-![](https://i.imgur.com/jEgPX52.jpg)
-*Figure 1. An overview of the Governance of Venice*
-
 Imagine a world where [LexDAO](https://www.lexdao.coop/)is both a DAO, but also has a Guild instance that participates in the Governance process of different DAOs. By governance process, we mean on-chain voting by token holders that results in actual protocol changes, such as [Governor Bravo](https://github.com/compound-finance/compound-protocol/tree/master/contracts/Governance) or [Maker Governance Module](https://docs.makerdao.com/smart-contract-modules/governance-module). We mean votes on proposals that result in literal code execution.
 
 In that world, proposers could specify that a certain proposal must first be approved by LexDAO, to reach the floor of the token holders, as it has to do with some change that touches the Legal aspect of the DAO. With Governance of Venice, the proposal would first have to be approved by LexDAO for it to continue.
@@ -59,16 +56,6 @@ In that world, proposers could specify that a certain proposal must first be app
 We can expect many different guilds performing work relevant to their functional area for many different governance modules. To ensure that the relevant Guild will be called, we force users to submit proposals that define at least a Guild to b e consulted. On top of that, Guilds can call other Guilds to the vote, making sure that most relevant voices are heard.
 
 Although the standard is completely agnostic about the Guild and the Merchant Republic, we took a highly opinionated approach for the reference implementation.
-
-Before we dive into the specifics, let's get a lay of the land:
-
-### Glossary
-
-- **Governance Modules**: The part of the architecture that has to do with the Governance of the DAO. Our implementation is based on Governor Bravo by Compound Labs. The main module is called the **Merchant Republic** and uses the **Constitution** to execute the proposals.
-- **Guild Council**: An interface that sits between the Guilds and the Merchant Republic. It functions as a registry of the Guilds that participate in Governance and proxies messages between a Guild and the Merchant Republic.
-- **Guild**: This particular Guild implementation that is permissionless, meaning that **anyone** can join and most actions require voting from the Guild Members.
-- **Commoner**: A token holder of the Merchant Republic that doesn't belong to a particular Guild.
-- **Guild Member**: A member of the Guild. They may or may not be token-holders.
 
 ## General Architecture
 
@@ -81,7 +68,18 @@ In our architecture, they are called **Merchant Republic** and **Constitution** 
 On top of it, it has another smart contract that functions as a registry and proxy for the communication between the Merchant Republic and the Guilds. It's called the **Guild Council**. Finally, we have an arbitrary number of Guilds, for which we have created a reference implementation that showcases some interesting concepts (e.g reputation-based admission for members).
 
 ![general architecture](https://i.imgur.com/RNcef8c.png)
-*Figure 2. Main components of the architecture*
+*Figure 1. Main components of the architecture*
+
+Before we dive into the specifics, let's get a lay of the land:
+
+### Glossary
+
+- **Governance Modules**: The part of the architecture that has to do with the Governance of the DAO. Our implementation is based on Governor Bravo by Compound Labs. The main module is called the **Merchant Republic** and uses the **Constitution** to execute the proposals.
+- **Guild Council**: An interface that sits between the Guilds and the Merchant Republic. It functions as a registry of the Guilds that participate in Governance and proxies messages between a Guild and the Merchant Republic.
+- **Guild**: This particular Guild implementation that is permissionless, meaning that **anyone** can join and most actions require voting from the Guild Members.
+- **Commoner**: A token holder of the Merchant Republic that doesn't belong to a particular Guild.
+- **Guild Member**: A member of the Guild. They may or may not be token-holders.
+-
 
 ### Joining a Guild
 
@@ -185,6 +183,13 @@ Because of the high-touch engagement in ensuring that the Guild functions, they 
 
 As for the Guild parameters, I implemented a simple timelock mechanism. All changes need at least a week to come into effect. A Guild Master needs to invoke the function once and then invoke it again to ratify the change. That gives time to the Guild to see the change on-chain and if they disagree, remove the Guild Master.
 
+### Bringing it all together
+
+In Figure 2, you can see the detailed architecture, the components and all their interactions. Every entity is a distinct smart contract and the name of the arrows are the functions that the smart contracts invoke when calling one-another. There are many different helper functions and details that I don't mention in this blog-post (e.g how a Merchant Republic Doge changes), but these details don't have to do with the novelties we are discussing here. They are helper functions and implementation details with no particular interest, apart from improving the UX and interaction model.
+
+![](https://i.imgur.com/jEgPX52.jpg)
+*Figure 2. A detailed overview of the Governance of Venice*
+
 ## Inter-DAO Governance Participation standard
 
 The inter-DAO Governance Participation standard is the second result of the work on bringing Gov 2.0 to life. While the reference implementation and resulting experiments are indeed exciting, there is a larger opportunity here in standardizing the way DAOs interoperate and participate in the Governance of other DAOs.
@@ -194,14 +199,14 @@ That's right. There is no reason why a Guild couldn't be a DAO of its own, votin
 As far as the standard is concerned, **a Guild is an ethereum address of a smart contract that supports a simple and specific set of interfaces**, mainly around sending proposals and receiving verdicts.
 
 ![DAOs as Guilds](https://i.imgur.com/BaG5etk.png)
-*Figure 4. DAOs as Guilds, with Guilds of their own*
+*Figure 3. DAOs as Guilds, with Guilds of their own*
 
 The standard is intentionally abstract about the exact inner workings of the Governance protocol and the Guild. It focuses on their intercommunication and how they work as autonomous units. That means that a Guild can function in any way it seems best, from a closely-knit group of people who align over a video call, to a trust-less Guild where Guild Members **vote** on how the Guild should respond.
 
 **This is an evolving standard and we foresee making many changes after initial feedback.**
 
 ![](https://i.imgur.com/s8WFuLM.png)
-*Figure 5. The interaction of the components*
+*Figure 4. The interaction of the components*
 
 We define the following interfaces, which can also be found in the [GitHub repository](https://github.com/pentagonxyz/gov-of-venice) of the reference implementation. Note that the reference implementation is much more opinionated, so is actually a super-set of the interfaces that we will define here.
 
