@@ -76,7 +76,7 @@ Before we dive into the specifics, let's get a lay of the land:
 
 - **Governance Modules**: The part of the architecture that has to do with the Governance of the DAO. Our implementation is based on Governor Bravo by Compound Labs. The main module is called the **Merchant Republic** and uses the **Constitution** to execute the proposals.
 - **Guild Council**: An interface that sits between the Guilds and the Merchant Republic. It functions as a registry of the Guilds that participate in Governance and proxies messages between a Guild and the Merchant Republic.
-- **Guild**: This particular Guild implementation that is permissionless, meaning that **anyone** can join and most actions require voting from the Guild Members.
+- **Guild**: This particular Guild implementation that is permission-less, meaning that **anyone** can join and most actions require voting from the Guild Members.
 - **Commoner**: A token holder of the Merchant Republic that doesn't belong to a particular Guild.
 - **Guild Member**: A member of the Guild. They may or may not be token-holders.
 -
@@ -85,7 +85,7 @@ Before we dive into the specifics, let's get a lay of the land:
 
 Any commoner can join a Guild that participates in their Governance Process. Once they join, they are Guild Members and they can vote on any proposal that goes to the Guild for a vote, even if they don't **personally** participate in the Governance that sent the proposal. If a Guild Member is found to have some functional knowledge, that should apply to any proposal that is passed to that **particular** Guild.
 
-In other words, if Bob is a member of LexDAO, he will be able to vote in proposals coming to LexDAO from Compound even if he personally doesn't own any `$COMP` and can't vote in the proposal as a COMP owner.
+In other words, if Bob is a member of AuditDAO, he will be able to vote in proposals coming to AuditDAO from Compound even if he personally doesn't own any `$COMP` and can't vote in the proposal as a COMP owner.
 
 As we said, Guilds are a group of people that share functional expertise. That expertise is expressed through the metric of **Gravitas**.
 
