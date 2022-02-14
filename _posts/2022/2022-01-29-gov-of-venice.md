@@ -193,18 +193,19 @@ That's right. There is no reason why a Guild couldn't be a DAO of its own, votin
 
 As far as the standard is concerned, **a Guild is an ethereum address of a smart contract that supports a simple and specific set of interfaces**, mainly around sending proposals and receiving verdicts.
 
-The standard is intentionally abstract about the exact inner workings of the Governance protocol and the Guild. It focuses on their intercommunication and how they work as autonomous units. That means that a Guild can function in any way it seems best, from a closely-knit group of people who align over a video call, to a trustless Guild where Guild Members **vote** on how the Guild should respond.
+![DAOs as Guilds](https://i.imgur.com/BaG5etk.png)
+*Figure 4. DAOs as Guilds, with Guilds of their own*
 
-The reference implementation is a much more opinionated design based on this simple concept, so the interfaces defined in the source code are not equivalent to what we define here.
+The standard is intentionally abstract about the exact inner workings of the Governance protocol and the Guild. It focuses on their intercommunication and how they work as autonomous units. That means that a Guild can function in any way it seems best, from a closely-knit group of people who align over a video call, to a trust-less Guild where Guild Members **vote** on how the Guild should respond.
 
-**This is an evolving standard and we foresee making many changes after initial feedback. We are actively looking for co-authors to bring this EIP to life**.
+**This is an evolving standard and we foresee making many changes after initial feedback.**
 
 ![](https://i.imgur.com/s8WFuLM.png)
-*Figure 3. The interaction of the components*
+*Figure 5. The interaction of the components*
 
-We define the following interfaces, which can also be found in the [GitHub repository](https://github.com/pentagonxyz/gov-of-venice) of the reference implementation.
+We define the following interfaces, which can also be found in the [GitHub repository](https://github.com/pentagonxyz/gov-of-venice) of the reference implementation. Note that the reference implementation is much more opinionated, so is actually a super-set of the interfaces that we will define here.
 
-Note that this is an evolving standard and not anywhere near complete.
+This is an evolving standard and not anywhere near complete.
 
 ### IGuild.sol
 
@@ -248,11 +249,11 @@ Called by Guilds after reaching a verdict on a proposal. Returns `true` if the a
 function _guildVerdict(bool guildAgreement, uint48 proposalId, uint48 guildId) external returns(bool success);
 ```
 
-
 ## Next Steps
 
 With the release of the Governance of Venice reference implementation and the proto-definition of a possible EIP, we invite the community to test, deploy and experiment with the reference implementation.
 
 We also invite any interested party to participate in the EIP discussions and help us author a new EIP.
-- [Governance Of Venice GitHub](https://github.com/pentagonxyz/gov-of-venice)
+
+Reach out via [Twitter](https://twitter.com/odyslam_), [Telegram](https://t.me/odyslam) or via Discord(odyslam#5467).
 
