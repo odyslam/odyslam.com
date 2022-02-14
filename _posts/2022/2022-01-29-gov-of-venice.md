@@ -189,7 +189,7 @@ As for the Guild parameters, I implemented a simple timelock mechanism. All chan
 
 The inter-DAO Governance Participation standard is the second result of the work on bringing Gov 2.0 to life. While the reference implementation and resulting experiments are indeed exciting, there is a larger opportunity here in standardizing the way DAOs interoperate and participate in the Governance of other DAOs.
 
-That's right. There is no reason why a Guild couldn't be a DAO of its own, voting and vetoing on proposals of other DAOs, as long as they have been accepted to participate in the Governance Process.
+That's right. There is no reason why a Guild couldn't be a DAO of its own, voting and vetoing on proposals of other DAOs, as long as they have been accepted to participate in the Governance Process. They could also be a thin wrapper around a Gnosis safe wallet, offering the required interfaces in order to function as part of the system, while boasting the great UX of gnosis safe.
 
 As far as the standard is concerned, **a Guild is an ethereum address of a smart contract that supports a simple and specific set of interfaces**, mainly around sending proposals and receiving verdicts.
 
