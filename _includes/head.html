@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="{{ site.baseurl }}/css/main.css?v={{ site.version }}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,400;0,600;1,100;1,300;1,400;1,423;1,500&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -49,11 +48,11 @@
     <meta property="og:site_name" content="{{ site.title }}" />
 
     <meta property="og:locale" content="el_GR" />
-    
+
     <meta name="twitter:site" content="@odysseas_lam" />
-    
+
     <meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}" />
-    
+
     {% if page.title %}
   <!-- Article specific OG data -->
   <!-- The OG:Type dictates a number of other tags on posts. -->
