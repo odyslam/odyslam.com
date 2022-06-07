@@ -8,17 +8,11 @@ future: true
 # Header settings
 nick: "hi"
 version: "1.5"
-mail:
-    domain: "odyslam"
-    ext: "me"
-source_code:
-    server: "github.com"
-    nick: "Odyslam"
 
 # Build settings
 markdown: kramdown
 permalink: /:title/
-exclude: ["balena_token", "deploy.sh", "README.MD", "deploy-local.sh", "manage.sh"]
+exclude: ["balena_token", "deploy.sh", "README.MD", "deploy-local.sh", "manage.sh", "README.md"]
 
 plugins:
      - jekyll-sitemap
