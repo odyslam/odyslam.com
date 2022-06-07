@@ -6,7 +6,6 @@ author: "Odysseas Lamtzidis"
 tags:
     - DeFi
     - "sovereign tech"
-
 excerpt: "Gov of Venice is an evolution to the current standard of DAO Governance, where autonomous groups participate in the governance process"
 image:
 ---
@@ -102,15 +101,16 @@ That *S* value is what we want to find it's way on-chain, as it compress the inf
 Based on data obtained by prior work[], for the United States we can make the following stipulations:
 
 **Data**:
-    - 10.2 million observations over 827 days. That's about 12.334 observations per day.
-    - 30.000 products
-    - 22 Categories
-    - 241 URLs
-    - 1 Retailer
+- 10.2 million observations over 827 days. That's about 12.334 observations per day.
+- 30.000 products
+- 22 Categories
+- 241 URLs
+- 1 Retailer
+
 **This produces**:
-    - 12.334 price changes $$R^j_{t, t-1}$$ per day
-    - 12 $$I^j_t$$ category-level indexes per day
-    - 1 Retailer Index $$S_t$$ per day
+- 12.334 price changes $$R^j_{t, t-1}$$ per day
+- 12 $$I^j_t$$ category-level indexes per day
+- 1 Retailer Index $$S_t$$ per day
 
 For the Unites States, there are ample statistics available regarding the national CPI indexes ([*](((DQiYOfGrA))) and [**](((_DICnLuOE)))).
 
@@ -126,35 +126,146 @@ The selector is very important, as it's in essence unique to every product page.
 
 I envision the index to be built and maintained by the open-source community (e.g a DAO) that will align around this project. I expect it to be a time-consuming enterprise, but otherwise not very complex as the products and their categories are well defined.
 
-Based on comments from [Alberto et al.](((Uo9XAKd-1))), when choosing the Supermarket, we will need to choose an adequately large supermarket chain, that it has a considerable percentage of the market. This will reflect the nation-wide accuracy of it's prices. Moreover, multiple supermarkets will offer an even more accurate view of the situation.
+Based on comments from [Alberto et al.](((Uo9XAKd-1))), when choosing the Supermarket, we will need to choose an adequately large supermarket chain, that it has a considerable percentage of the market. Ideally, we want a chain that is present in most regions of the country so that we avoid local prices. This will reflect the nation-wide accuracy of it's prices. Finally, multiple supermarkets will offer an even more accurate view of the situation, but this obviously increases the difficulty of the endeavour.
 
 ### Product scraping
 
-Product scraping can be quite trivial with the appropriate `css selector` and a performant scraper. The maintainer should make sure that all the selectors are kept up to date and return the correct information.
+Product scraping can be quite trivial with the appropriate `css selector` and a performant scraper.
+
+A scraper is a little program that receives as an input the `url` and the `css selector` of a particular product and returns the current `price` for that product.
 
 ## The Oracle Problem
+
+The Oracle problem is one of the big challenges in the wider cryptocurrency space. We want to add arbitrary real-world data into the blockchain and use that data in our applications. The problem is that the blockchain has no way to natively verify that accuracy of said data. Ethereum can't really know if the "price" of ETH is $1800 or $6000, so the apps have to trust the actor that inputs the data about their veracity.
+
+The most accepted design-space for this problem is to tackle it using game theoretical schemes, where we create a system that a rational actor is rewarded for supplying correct data and punished if the data is false. The system uses the multiple actors to police one-another with various ways, creating a probabilistic accuracy for the offchain data that make it on chain.
 
 
 ## Referenece Architecture
 
-As I explained above, the design is very modular and can easily be decomposed into three distinct systems:
+As I explained above, the design is very modular and can easily be decomposed into four distinct systems:
 
-- Off-chain agent: Responsible for computing the inflation index and posting it on-chain
-- Oracle: Responsible for digesting the inflation index(or indexes), compute the canonical inflation, serve it to other consumers and finally incentivize the off-chain agents to be honest.
-- DeFi stack: A DAO that is responsible for managing said oracle, issues the inflation-adjusted DeFi products and more
+- **Off-chain agent**: Responsible for computing the inflation index and posting it on-chain.
+- **Oracle**: Responsible for digesting the inflation index(or indexes), compute the canonical inflation, serve it to other consumers and finally incentivize the off-chain agents to be honest.
+- **DAO**:A DAO that is responsible for managing said oracle, issues the inflation-adjusted DeFi products and more.
+- **DeFi stack**: A stack of DeFi products that leverage the ability of the system to "know" the current inflation of various countries.
 
 ### Mechanism Design considerations
 
+At this point, there are a couple of important mechanism design questions that I haven't addressed, but I feel are important to keep in mind:
+- Do we need a single "canonical" inflation value or the Oracle can function as an index of feeds that users (or smart contacts) can chose to follow based on reputation
+- What should be the mechanism around the reward/punishment of feeds based on their accuracy
+- What should be the mechanism around whitelisting(or not) feeds to participate in the Oracle
+- What parts of the oracle will be designed to be modifiable?
+    - Attributes only (e.g Inflation Taxonomy)
+    - Entire Oracle will be upgradeable
+
 ### Off-chain agent
 
-#### Module 1
+The off-chain agent was designed with performance and ease-of-use in mind. It should:
+- be as performant as possible, enabling users to run it on minimal hardware (e.g Raspberry Pi)
+- be as easy as possible to be installed, ideally by users with low technical knowledge (or none)
+- be installed/setup in a clearly defined and reproducible manner
 
-### Oracle
+To that effect, it should be written in Rust and packaged in a docker container. Although various designs were made regarding the Agent, I find that they are not important.
+
+The most important aspect of the agent must be:
+- the efficient scraping of thousands of products per day
+- the efficient archival of the data points
+
+Although the agent will submit a single data point to the blockchain, it could store the raw data in a manner that would be publicly accessible.
+
+Assuming that the data points are stored on a `csv` file, we can assume ~13.000 data points will consume about `1.2-2Mb` of storage on a daily basis, creating a total of about `680Mb` per year. Using services such as:
+- [filecoin](https://filecoin.io)
+- [arweave](https://arweave.org)
+- [celestia](https://celestia.org)
+
+It should be fairly cheap for the user to keep a public record of all the raw data that they have aggregated and used to submit their inflation prices. This should add a useful transparency to the actors of the system that could be used by the system's Governance.
+
+## Oracle
+
+The Oracle system is the set of smart contracts that receive the indexes by the agents and compute the system's inflation index. The Oracle has been modeled after the [MakerDAO Oracle Module](https://docs.makerdao.com/smart-contract-modules/oracle-module) and is a system with the following smart contracts.
+
+Let's see them at a high level.
+
+### Aggregator
+
+- It's responsible for aggregating the index from the agents, by enabling the agents to submit them
+- It's modeled after the MakerDAO's [median.sol](https://github.com/makerdao/median/blob/master/src/median.sol) smart contract
+- It computes the *median* value from all the submitted values.
+
+### Security
+
+- It's responsible for adding a delay to the Oracle's data feed, so there is time to mitigate an attack
+- It follows MakerDao's structure of the Oracle-v2 [osm.sol](https://github.com/makerdao/osm/blob/master/src/osm.sol) module
+- With every epoch, it gets an update by the [aggregator](#aggregator). With every update, it makes the previous epoch's value available to the rest of the system. In other words, the system has a full epoch (a day) to deal with a bad input to the system
+
+### Mesa
+
+It's the very core of the Oracle. I expect Mesa to be the smart contract that interfaces the Oracle with the DAO Governance of the system.
+
+It servies as an index of all the important information that concerns the system:
+- Target URLs for products
+- Inflation taxonomy (retailer, country, product category, CPI weights)
+- Whitelisted ethereum addresses that can change the various attributes of the Oracle (e.g Governance)
+- Based Feed Reward: Will be used by the [Gifter](#gifter)
+
+While the addresses and the rewards can be stored on-chain, we can't store the rest of that data on the blockchain, thus we need to store them somewhere else and then **anchor** them to the mesa contract.
+
+An idea could be to use something like Arweave (mentioned above), where the system will pay to host the data and then submit the `location_hash` to the mesa smart_contract. Using the `location_hash`, anyone can go to the Arweave network and retrieve the data. Of course, with using Arweave, we make the system vulnerable to Arweave's security, as if Arweave stops working, the system would no longer have access to the data and Governance should kick in to mitigate this.
+
+The above information can be summarised in the following data structure, in the form of a JSON file:
+
+```json
+{"retailer": "country"}
+{"product_id": "CPI_product_category"}
+{
+  "urls":["
+         {
+         "product_id": "identifier"
+          "identifier_type": "css_selector" || "regex"
+         }"
+		]
+}
+{"CPI_product_category": "CPI_weight" }
+```
+**note:** The identifier is the unique element that will be used to find the price for that particular product item. A `css selector`, a `regex` expression, etc.
+
+So, the list above could be stored on the smart contract as follows:
+- `inflation_info`: `location_hash`
+- `whitelisted_addresses`: `address[]``
+- `based_feed_reward`: `int`
+
+### Gifter
+
+It's responsible for rewarding the feeds for submitting inflation indexes.
+
+- Computes the rewards for each feed
+- Sends the reward to the feed's address. The reward is made available from Oracle's treasury, which will be funded and managed by [mesa](#mesa)
+
+**Reward Formula (Naive Approach)**
+
+- Euclidean distance from the Median and a base reward.
+    - Euclidian Distance: $$d(p,q) = \sqrt{(p-q)^2} $$, where $$p$$ is the median index chosen by the [aggregator](#aggregator) and $$q$$ is the index supplied by the feed.
+    - Reward $$R_i = T - d_i$$. If $$R_i<0$$, then $$R_i=0$$. Where $$T$$ is a threshold value set by the Oracle and $$R_i$$ is reward for Feed $$i$$.
+- We could also design a formula-scheme that results to a zero-sum game between the feeds. That would lead the feeds to police one another in case of malpractice, so that they can raise the issue to the governance, kick the feed and thus increase their revenue.
 
 ### DeFi - DAO
+
+I never reached this point, but I invite others to  work on this very interesting front. What DeFi tools could we design, if we had a good data point on the current inflation over some part of the world?
+
 ## Envisioned Roadmap
 
+- Build Agent MVP: Given a list of targets, scrape product prices and store them on a csv file
+- Build Product target list for a specific region/country
+- Launch MVP of the Oracle tied to a multi-sig Governance
+- Address decentralized storage of agent's config (target list, etc.)
+- Launch Agent (stable, easy to install, etc.)
+- Launch Governance, token
+
 ## Open Questions
+
+
 
 ## Call to Action
 
