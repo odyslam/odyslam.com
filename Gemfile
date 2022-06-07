@@ -25,6 +25,7 @@ install_if -> { RUBY_PLATFORM =~ %r!mingw|mswin|java! } do
   gem "tzinfo-data"
 end
 
-# Performance-booster for watching directories on Windows
 gem "jekyll-sitemap", "~> 1.4"
 gem 'jekyll-seo-tag'
+
+gem "webrick", "~> 1.7"
